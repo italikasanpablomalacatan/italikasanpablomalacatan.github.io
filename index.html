@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Catálogo Italika</title>
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
   <header class="hero">
-    <img class="brand" src="assets/img/logo-header.png" alt="Italika" onerror="this.src='assets/img/logo-malacatan.png'">
+    <img class="brand" id="heroLogo" src="assets/img/logo-malacatan.png" alt="Italika" onerror="this.src='assets/img/logo-malacatan.png'">
     <div class="heroText">
       <p>Catálogo de motocicletas</p>
-      <h1>Modelos disponibles con atención directa por WhatsApp</h1>
+      <h1>Precios válidos del 19 al 25 de mayo 2026</h1>
     </div>
   </header>
 
@@ -77,8 +77,11 @@
     <p class="muted">Ingresa el valor de la moto para calcular el 15% mínimo de enganche.</p>
     <input id="calcValue" class="calcInput" type="number" min="0" inputmode="decimal" placeholder="Ejemplo: 7499">
     <div class="result">
-      <small>Mínimo de enganche</small>
+      <small>15% calculado</small>
+      <b id="calcExact">Q0.00</b>
+      <small>Mínimo de enganche redondeado</small>
       <strong id="calcResult">Q0.00</strong>
+      <em id="calcRoundNote">Redondeo al siguiente Q100</em>
     </div>
     <p class="muted">¿Deseas comunicarte con nosotros?</p>
     <button class="agency" data-calc-agency="malacatan">
@@ -93,7 +96,7 @@
 
   <footer>© 2026 Italika Malacatán / San Pablo</footer>
 
-  <script src="data.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="data.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

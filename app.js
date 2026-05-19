@@ -1,8 +1,9 @@
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const grid=$("#grid"),cats=$("#cats"),search=$("#search"),sort=$("#sort");
 const motoDialog=$("#motoDialog"),agencyDialog=$("#agencyDialog"),calcDialog=$("#calcDialog");
-let active="Todas",selectedMoto=null;
+let active="Todas",selectedMoto=null,exactCalc=0,roundedCalc=0;
 const q=n=>"Q"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const roundUp=(n,step=100)=>Math.ceil(Number(n||0)/step)*step;
 function paths(n){const v=[n,String(n).toLowerCase(),String(n).toUpperCase()];const e=["webp","png","jpg","jpeg","WEBP","PNG","JPG","JPEG"];const f=["assets/img/motos","assets/img"];let a=[];f.forEach(x=>[...new Set(v)].forEach(y=>e.forEach(z=>a.push(`${x}/${y}.${z}`))));return a}
 function img(el,name,alt){let p=paths(name),i=0;el.alt=alt||name;el.onerror=()=>{i++; if(i<p.length)el.src=p[i]; else{el.onerror=null;let d=document.createElement("div");d.className="no-img";d.textContent=alt||name;el.replaceWith(d)}};el.src=p[0]}
 function priceHtml(m){return `${m.oldPrice?`<span class="oldPrice">${q(m.oldPrice)}</span>`:""}<span>${q(m.precio)}</span>${m.oldPrice?`<span class="discountTag">Oferta</span>`:""}`}
@@ -12,8 +13,9 @@ function render(){grid.innerHTML="";list().forEach(m=>{let c=document.createElem
 function openMoto(m){selectedMoto=m;$("#modalCat").textContent=m.categoria;$("#modalName").textContent=m.nombre;$("#modalDetail").textContent=m.detalle;$("#modalPrice").textContent=q(m.precio);$("#modalOldWrap").innerHTML=m.oldPrice?`<span class="oldModal">${q(m.oldPrice)}</span> <span class="discountTag">Oferta</span>`:"";$("#modalSku").textContent=m.sku;$("#modalCode").textContent=m.codigo;let old=$("#modalImg"),clone=old.cloneNode();old.replaceWith(clone);img(clone,m.img,m.nombre);motoDialog.showModal()}
 function openAgency(){ $("#agencyText").textContent=selectedMoto?`Consulta por ${selectedMoto.nombre} - ${selectedMoto.detalle}`:"Te enviaremos a WhatsApp."; agencyDialog.showModal()}
 function wa(key,custom){let a=agencias[key];let msg=custom||(selectedMoto?`Hola, estoy interesado en la moto ${selectedMoto.nombre} (${selectedMoto.detalle}) con precio de contado ${q(selectedMoto.precio)}. Quiero comunicarme con agencia ${a.nombre}.`:`Hola, quiero información del catálogo de motocicletas. Quiero comunicarme con agencia ${a.nombre}.`);open(`https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`,"_blank")}
-function calc(){let v=Number($("#calcValue").value||0);$("#calcResult").textContent=q(v*.15)}
+function calc(){let v=Number($("#calcValue").value||0);exactCalc=v*.15;roundedCalc=roundUp(exactCalc,100);$("#calcExact").textContent=q(exactCalc);$("#calcResult").textContent=q(roundedCalc)}
 search.oninput=render;sort.onchange=render;$("#contactBtn").onclick=()=>{selectedMoto=null;openAgency()};$("#calcBtn").onclick=()=>calcDialog.showModal();$("#interestBtn").onclick=openAgency;$("#calcValue").oninput=calc;
 $$("[data-close]").forEach(b=>b.onclick=()=>motoDialog.close());$$("[data-close-agency]").forEach(b=>b.onclick=()=>agencyDialog.close());$$("[data-close-calc]").forEach(b=>b.onclick=()=>calcDialog.close());
 $$("[data-agency]").forEach(b=>b.onclick=()=>wa(b.dataset.agency));$$("[data-calc-agency]").forEach(b=>b.onclick=()=>{let val=Number($("#calcValue").value||0);let a=agencias[b.dataset.calcAgency];wa(b.dataset.calcAgency,`Hola, calculé un enganche para una moto con valor de ${q(val)}. El 15% mínimo de enganche sería ${q(val*.15)}. Deseo comunicarme con agencia ${a.nombre}.`)});
+const heroLogo=$("#heroLogo");const logoList=["assets/img/logo-malacatan.png","assets/img/logo-sanpablo.png"];let logoIndex=0;setInterval(()=>{logoIndex=(logoIndex+1)%logoList.length;heroLogo.classList.remove("logoFade");void heroLogo.offsetWidth;heroLogo.src=logoList[logoIndex];heroLogo.classList.add("logoFade")},6500);
 buildCats();render();

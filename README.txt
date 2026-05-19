@@ -1,12 +1,12 @@
-V9 PRECIOS ACTUALIZADOS
+V10 MEJORAS
 
 Cambios:
-- Precios actualizados según tabla 19 al 25 de mayo 2026.
-- 150Z NEGRO AZUL actualizado a Q11,999 sin precio anterior porque subió.
-- ATV con precio anterior ficticio + Q3,000 tachado.
-- GTK y GTK125X con precio anterior ficticio + Q3,000 tachado.
-- Scooter sigue como Pasolas.
-- Se conserva calculadora de enganche 15%, WhatsApp, tarjetas, filtros y búsqueda.
+- Calculadora redondea automáticamente hacia arriba al siguiente Q100.
+- Muestra 15% calculado y mínimo de enganche redondeado.
+- TITAN250 movida a categoría Trabajo.
+- Texto principal cambiado a: Precios válidos del 19 al 25 de mayo 2026.
+- Logo superior cambia automáticamente entre Malacatán y San Pablo con animación.
+- Mantiene precios anteriores tachados y funciones anteriores.
 
 Sube reemplazando:
 index.html
