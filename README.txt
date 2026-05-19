@@ -1,4 +1,12 @@
-V8 OPTIMIZADO
+V9 PRECIOS ACTUALIZADOS
+
+Cambios:
+- Precios actualizados según tabla 19 al 25 de mayo 2026.
+- 150Z NEGRO AZUL actualizado a Q11,999 sin precio anterior porque subió.
+- ATV con precio anterior ficticio + Q3,000 tachado.
+- GTK y GTK125X con precio anterior ficticio + Q3,000 tachado.
+- Scooter sigue como Pasolas.
+- Se conserva calculadora de enganche 15%, WhatsApp, tarjetas, filtros y búsqueda.
 
 Sube reemplazando:
 index.html
@@ -7,11 +15,4 @@ data.js
 app.js
 assets/
 
-Cambios:
-- Rediseño completo más liviano
-- Scooter cambiado a Pasolas
-- Imágenes con lazy loading
-- Calculadora flotante sobre el teléfono
-- Enganche mínimo del 15%
-- WhatsApp a Malacatán o San Pablo
-- Conserva búsqueda, categorías, ordenar, tarjeta de moto y botón Me interesa esto
+No subas el ZIP completo.

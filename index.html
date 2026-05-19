@@ -4,46 +4,96 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Catálogo Italika</title>
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
   <header class="hero">
     <img class="brand" src="assets/img/logo-header.png" alt="Italika" onerror="this.src='assets/img/logo-malacatan.png'">
-    <p>Catálogo de motocicletas</p>
-    <h1>Modelos disponibles con atención directa por WhatsApp</h1>
+    <div class="heroText">
+      <p>Catálogo de motocicletas</p>
+      <h1>Modelos disponibles con atención directa por WhatsApp</h1>
+    </div>
   </header>
 
   <main class="wrap">
     <section class="tools">
-      <div class="searchBox"><span>⌕</span><input id="search" type="search" placeholder="Buscar modelo, categoría o SKU..."></div>
-      <select id="sort"><option value="default">Ordenar</option><option value="priceAsc">Precio: menor a mayor</option><option value="priceDesc">Precio: mayor a menor</option><option value="nameAsc">Modelo A-Z</option></select>
+      <div class="searchBox">
+        <span>⌕</span>
+        <input id="search" type="search" placeholder="Buscar modelo, categoría o SKU...">
+      </div>
+      <select id="sort">
+        <option value="default">Ordenar</option>
+        <option value="priceAsc">Precio: menor a mayor</option>
+        <option value="priceDesc">Precio: mayor a menor</option>
+        <option value="nameAsc">Modelo A-Z</option>
+      </select>
     </section>
+
     <nav id="cats" class="cats"></nav>
     <section id="grid" class="grid"></section>
   </main>
 
-  <div class="floatStack"><button id="calcBtn" class="float calc">🧮</button><button id="contactBtn" class="float phone">☎</button></div>
+  <div class="floatStack">
+    <button id="calcBtn" class="float calc" aria-label="Calculadora">🧮</button>
+    <button id="contactBtn" class="float phone" aria-label="Contactar">☎</button>
+  </div>
 
   <dialog id="motoDialog" class="dialog">
     <button class="x" data-close>×</button>
-    <div class="dialogGrid"><div class="bigPhoto"><img id="modalImg" alt=""></div><div><span id="modalCat" class="pill"></span><h2 id="modalName"></h2><p id="modalDetail" class="muted"></p><div class="priceBox"><small>Precio de contado</small><strong id="modalPrice"></strong></div><p class="mini">SKU: <b id="modalSku"></b> · Código: <b id="modalCode"></b></p><button id="interestBtn" class="primary">Me interesa esto</button></div></div>
+    <div class="dialogGrid">
+      <div class="bigPhoto"><img id="modalImg" alt=""></div>
+      <div>
+        <span id="modalCat" class="pill"></span>
+        <h2 id="modalName"></h2>
+        <p id="modalDetail" class="muted"></p>
+        <div class="priceBox">
+          <small>Precio de contado</small>
+          <div id="modalOldWrap" class="oldWrap"></div>
+          <strong id="modalPrice"></strong>
+        </div>
+        <p class="mini">SKU: <b id="modalSku"></b> · Código: <b id="modalCode"></b></p>
+        <button id="interestBtn" class="primary">Me interesa esto</button>
+      </div>
+    </div>
   </dialog>
 
   <dialog id="agencyDialog" class="dialog small">
-    <button class="x" data-close-agency>×</button><h2>¿Con qué agencia deseas comunicarte?</h2><p id="agencyText" class="muted">Te enviaremos a WhatsApp.</p>
-    <button class="agency" data-agency="malacatan"><img src="assets/img/logo-malacatan.png" alt=""><span>Malacatán</span></button>
-    <button class="agency" data-agency="sanpablo"><img src="assets/img/logo-sanpablo.png" alt=""><span>San Pablo</span></button>
+    <button class="x" data-close-agency>×</button>
+    <h2>¿Con qué agencia deseas comunicarte?</h2>
+    <p id="agencyText" class="muted">Te enviaremos a WhatsApp.</p>
+    <button class="agency" data-agency="malacatan">
+      <img src="assets/img/logo-malacatan.png" alt="">
+      <span>Malacatán</span>
+    </button>
+    <button class="agency" data-agency="sanpablo">
+      <img src="assets/img/logo-sanpablo.png" alt="">
+      <span>San Pablo</span>
+    </button>
   </dialog>
 
   <dialog id="calcDialog" class="dialog small">
-    <button class="x" data-close-calc>×</button><h2>Calculadora de enganche</h2><p class="muted">Ingresa el valor de la moto para calcular el 15% mínimo de enganche.</p>
+    <button class="x" data-close-calc>×</button>
+    <h2>Calculadora de enganche</h2>
+    <p class="muted">Ingresa el valor de la moto para calcular el 15% mínimo de enganche.</p>
     <input id="calcValue" class="calcInput" type="number" min="0" inputmode="decimal" placeholder="Ejemplo: 7499">
-    <div class="result"><small>Mínimo de enganche</small><strong id="calcResult">Q0.00</strong></div><p class="muted">¿Deseas comunicarte con nosotros?</p>
-    <button class="agency" data-calc-agency="malacatan"><img src="assets/img/logo-malacatan.png" alt=""><span>Malacatán</span></button>
-    <button class="agency" data-calc-agency="sanpablo"><img src="assets/img/logo-sanpablo.png" alt=""><span>San Pablo</span></button>
+    <div class="result">
+      <small>Mínimo de enganche</small>
+      <strong id="calcResult">Q0.00</strong>
+    </div>
+    <p class="muted">¿Deseas comunicarte con nosotros?</p>
+    <button class="agency" data-calc-agency="malacatan">
+      <img src="assets/img/logo-malacatan.png" alt="">
+      <span>Malacatán</span>
+    </button>
+    <button class="agency" data-calc-agency="sanpablo">
+      <img src="assets/img/logo-sanpablo.png" alt="">
+      <span>San Pablo</span>
+    </button>
   </dialog>
 
   <footer>© 2026 Italika Malacatán / San Pablo</footer>
-  <script src="data.js?v=8"></script><script src="app.js?v=8"></script>
+
+  <script src="data.js?v=9"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>
