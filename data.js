@@ -19,7 +19,7 @@ const motos=[
 {sku:"34006401",codigo:"70000272",nombre:"250Z",detalle:"250Z NEGRO GRIS",categoria:"Línea Z",precio:17499,img:"250Z"},
 {sku:"34006836",codigo:"70000274",nombre:"280Z",detalle:"280Z",categoria:"Línea Z",precio:18499,img:"280Z"},
 {sku:"34004955",codigo:"70000150",nombre:"BLACKBIRD250",detalle:"BLACKBIRD250",categoria:"Café Racer",precio:12999,img:"BLACKBIRD250"},
-{sku:"34005844",codigo:"70000265",nombre:"TITAN250",detalle:"TITAN 250",categoria:"Deportiva",precio:20999,img:"TITAN250"},
+{sku:"34005844",codigo:"70000265",nombre:"TITAN250",detalle:"TITAN 250",categoria:"Trabajo",precio:20999,img:"TITAN250"},
 {sku:"34005343",codigo:"70000226",nombre:"RT250G",detalle:"RT250G",categoria:"Deportiva",precio:17999,img:"RT250G"},
 {sku:"34005352",codigo:"70000229",nombre:"VORTX250",detalle:"VORT-X250",categoria:"Vort-X",precio:17999,img:"VORTX250"},
 {sku:"34005055",codigo:"70000145",nombre:"DM125",detalle:"DM125",categoria:"Todo Terreno",precio:7499,img:"DM125"},
