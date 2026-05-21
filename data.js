@@ -33,4 +33,4 @@ const motos=[
 {sku:"34004931",codigo:"70000130",nombre:"ATV200",detalle:"ATV200 ANARANJADO",categoria:"ATV's",precio:20999,oldPrice:23999,img:"ATV200"},
 {sku:"34005266",codigo:"70000164",nombre:"ATV250",detalle:"ATV250 N/C",categoria:"ATV's",precio:24999,oldPrice:27999,img:"ATV250"}
 ];
-const agencias={malacatan:{nombre:"Malacatán",telefono:"50236500543"},sanpablo:{nombre:"San Pablo",telefono:"50259173974"}};
+const agencias={malacatan:{nombre:"Malacatán",telefono:"50230822551"},sanpablo:{nombre:"San Pablo",telefono:"50259173974"}};
