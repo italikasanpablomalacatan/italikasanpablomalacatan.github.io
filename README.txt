@@ -1,8 +1,16 @@
-V11 FORMAS DE PAGO
+V12 MENSAJES Y PANTALLA DE CARGA
 
-Al presionar “Me interesa esto”:
-- Contado: selecciona agencia y manda mensaje de contado.
-- Crédito: calcula 15% de enganche, lo redondea hacia arriba al siguiente Q100, muestra nota y selecciona agencia.
-- Visa cuotas: pide banco, muestra nota de porcentaje, pide cuotas y selecciona agencia.
+Cambios:
+- WhatsApp ya NO envía las notas internas.
+- Mensaje de WhatsApp más ordenado con saltos de línea.
+- Al seleccionar agencia aparece una pantalla falsa de carga:
+  “Seleccionando a un asesor libre para darte la mejor atención”
+  con puntitos saltando.
+- Luego redirige a WhatsApp como antes.
 
-WhatsApp manda mensaje personalizado con moto, tipo de pago, enganche o banco/cuotas.
+Sube reemplazando:
+index.html
+styles.css
+data.js
+app.js
+assets/

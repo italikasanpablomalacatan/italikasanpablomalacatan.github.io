@@ -1,6 +1,6 @@
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const grid=$("#grid"),cats=$("#cats"),search=$("#search"),sort=$("#sort");
-const motoDialog=$("#motoDialog"),paymentDialog=$("#paymentDialog"),agencyDialog=$("#agencyDialog"),calcDialog=$("#calcDialog");
+const motoDialog=$("#motoDialog"),paymentDialog=$("#paymentDialog"),agencyDialog=$("#agencyDialog"),calcDialog=$("#calcDialog"),loadingDialog=$("#loadingDialog");
 let active="Todas",selectedMoto=null,exactCalc=0,roundedCalc=0,paymentType="",selectedBank="",selectedInstallments="",creditDownPayment=0;
 const q=n=>"Q"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 const roundUp=(n,step=100)=>Math.ceil(Number(n||0)/step)*step;
@@ -15,11 +15,60 @@ function resetPayment(){paymentType="";selectedBank="";selectedInstallments="";c
 function paymentLabel(){return paymentType==="credito"?"crédito":paymentType==="visa"?"visa cuotas":paymentType==="contado"?"contado":"información"}
 function openPayment(){if(!selectedMoto)return;resetPayment();$("#paymentMotoText").textContent=`Moto seleccionada: ${selectedMoto.nombre} - ${selectedMoto.detalle}`;paymentDialog.showModal()}
 function openAgency(){ $("#agencyText").textContent=selectedMoto?`Consulta por ${selectedMoto.nombre} - ${selectedMoto.detalle} · Pago: ${paymentLabel()}`:"Te enviaremos a WhatsApp."; agencyDialog.showModal()}
-function wa(key,custom){let a=agencias[key];let msg=custom;if(!msg){if(selectedMoto){msg=`Hola, me interesa ${selectedMoto.nombre} (${selectedMoto.detalle}). Me interesa tipo de pago: ${paymentLabel()}. Precio de contado: ${q(selectedMoto.precio)}.`;if(paymentType==="credito"){msg+=` Mínimo de enganche redondeado: ${q(creditDownPayment)}. Nota: si el enganche es mayor, el interés es menor.`}if(paymentType==="visa"){msg+=` Banco de tarjeta: ${selectedBank}. Tiempo de pago: ${selectedInstallments} cuotas. Nota: algunos bancos cobran un porcentaje por el pago que puede ir del 2.38% al 6.25% dependiendo del banco.`}if(paymentType==="contado"){msg+=` Deseo recibir información para compra de contado.`}msg+=` Quiero comunicarme con agencia ${a.nombre}.`}else{msg=`Hola, quiero información del catálogo de motocicletas. Quiero comunicarme con agencia ${a.nombre}.`}}open(`https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`,"_blank")}
+function buildClientMessage(key,custom){
+let a=agencias[key];
+if(custom) return custom;
+if(!selectedMoto){
+  return `Hola, quiero información del catálogo de motocicletas.\nAgencia seleccionada: ${a.nombre}`;
+}
+let lines=[
+  `Hola, me interesa esta moto:`,
+  ``,
+  `Moto: ${selectedMoto.nombre}`,
+  `Modelo: ${selectedMoto.detalle}`,
+  `Precio de contado: ${q(selectedMoto.precio)}`,
+  `Tipo de pago: ${paymentLabel()}`,
+];
+if(paymentType==="credito"){
+  lines.push(`Mínimo de enganche: ${q(creditDownPayment)}`);
+}
+if(paymentType==="visa"){
+  lines.push(`Banco de tarjeta: ${selectedBank}`);
+  lines.push(`Cuotas deseadas: ${selectedInstallments}`);
+}
+if(paymentType==="contado"){
+  lines.push(`Deseo información para compra de contado.`);
+}
+lines.push(`Agencia seleccionada: ${a.nombre}`);
+return lines.join("\n");
+}
+function wa(key,custom){
+let a=agencias[key];
+let msg=buildClientMessage(key,custom);
+try{agencyDialog.close()}catch(e){}
+try{calcDialog.close()}catch(e){}
+if(!loadingDialog.open) loadingDialog.showModal();
+setTimeout(()=>{
+  try{loadingDialog.close()}catch(e){}
+  open(`https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`,"_blank");
+},1800);
+}
 function calc(){let v=Number($("#calcValue").value||0);exactCalc=v*.15;roundedCalc=roundUp(exactCalc,100);$("#calcExact").textContent=q(exactCalc);$("#calcResult").textContent=q(roundedCalc)}
 search.oninput=render;sort.onchange=render;$("#contactBtn").onclick=()=>{selectedMoto=null;openAgency()};$("#calcBtn").onclick=()=>calcDialog.showModal();$("#interestBtn").onclick=openPayment;$("#calcValue").oninput=calc;
 $$("[data-close]").forEach(b=>b.onclick=()=>motoDialog.close());$$("[data-close-payment]").forEach(b=>b.onclick=()=>paymentDialog.close());$$("[data-close-agency]").forEach(b=>b.onclick=()=>agencyDialog.close());$$("[data-close-calc]").forEach(b=>b.onclick=()=>calcDialog.close());
-$$("[data-agency]").forEach(b=>b.onclick=()=>wa(b.dataset.agency));$$("[data-calc-agency]").forEach(b=>b.onclick=()=>{let val=Number($("#calcValue").value||0);let a=agencias[b.dataset.calcAgency];wa(b.dataset.calcAgency,`Hola, calculé un enganche para una moto con valor de ${q(val)}. El 15% es ${q(exactCalc)} y el mínimo de enganche redondeado es ${q(roundedCalc)}. Deseo comunicarme con agencia ${a.nombre}.`)});
+$$("[data-agency]").forEach(b=>b.onclick=()=>wa(b.dataset.agency));$$("[data-calc-agency]").forEach(b=>b.onclick=()=>{
+let val=Number($("#calcValue").value||0);
+let a=agencias[b.dataset.calcAgency];
+let msg=[
+  `Hola, calculé un enganche.`,
+  ``,
+  `Valor de la moto: ${q(val)}`,
+  `15% calculado: ${q(exactCalc)}`,
+  `Enganche redondeado: ${q(roundedCalc)}`,
+  `Agencia seleccionada: ${a.nombre}`
+].join("\n");
+wa(b.dataset.calcAgency,msg);
+});
 $$("[data-pay]").forEach(b=>b.onclick=()=>{paymentType=b.dataset.pay;if(paymentType==="contado"){paymentDialog.close();openAgency()}if(paymentType==="credito"){creditDownPayment=roundUp(selectedMoto.precio*.15,100);$("#creditDownPayment").textContent=q(creditDownPayment);$("#paymentOptions").classList.add("hidden");$("#creditStep").classList.remove("hidden")}if(paymentType==="visa"){$("#paymentOptions").classList.add("hidden");$("#visaBankStep").classList.remove("hidden")}})
 $("#creditNext").onclick=()=>{paymentDialog.close();openAgency()}
 const banks=["BI","Proamérica","G&T","BAM","Bantrab","Occidente","Banrural","Ficohsa","Micoope","Otros"];$("#bankGrid").innerHTML=banks.map(b=>`<button class="bankBtn" data-bank="${b}">${b}</button>`).join("");$$("[data-bank]").forEach(b=>b.onclick=()=>{selectedBank=b.dataset.bank;$("#visaBankStep").classList.add("hidden");$("#visaInstallmentStep").classList.remove("hidden")});
