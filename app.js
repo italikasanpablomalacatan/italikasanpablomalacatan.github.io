@@ -50,8 +50,9 @@ try{calcDialog.close()}catch(e){}
 if(!loadingDialog.open) loadingDialog.showModal();
 setTimeout(()=>{
   try{loadingDialog.close()}catch(e){}
-  open(`https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`,"_blank");
-},1800);
+  const url = `https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`;
+  window.location.href = url;
+},1600);
 }
 function calc(){let v=Number($("#calcValue").value||0);exactCalc=v*.15;roundedCalc=roundUp(exactCalc,100);$("#calcExact").textContent=q(exactCalc);$("#calcResult").textContent=q(roundedCalc)}
 search.oninput=render;sort.onchange=render;$("#contactBtn").onclick=()=>{selectedMoto=null;openAgency()};$("#calcBtn").onclick=()=>calcDialog.showModal();$("#interestBtn").onclick=openPayment;$("#calcValue").oninput=calc;

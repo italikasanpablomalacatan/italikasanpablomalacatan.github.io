@@ -1,12 +1,9 @@
-V12 MENSAJES Y PANTALLA DE CARGA
+V13 FIX WHATSAPP CELULAR
 
-Cambios:
-- WhatsApp ya NO envía las notas internas.
-- Mensaje de WhatsApp más ordenado con saltos de línea.
-- Al seleccionar agencia aparece una pantalla falsa de carga:
-  “Seleccionando a un asesor libre para darte la mejor atención”
-  con puntitos saltando.
-- Luego redirige a WhatsApp como antes.
+Cambio:
+- Arreglado el problema en celular donde WhatsApp no abría al seleccionar agencia.
+- Ahora después de la pantalla de carga redirige en la misma pestaña con window.location.href.
+- En computadora y celular funciona igual.
 
 Sube reemplazando:
 index.html
