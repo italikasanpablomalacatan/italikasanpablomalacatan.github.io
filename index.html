@@ -1,102 +1,118 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Catálogo Italika</title>
-  <link rel="stylesheet" href="styles.css?v=10">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catálogo Italika</title>
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
-  <header class="hero">
-    <img class="brand" id="heroLogo" src="assets/img/logo-malacatan.png" alt="Italika" onerror="this.src='assets/img/logo-malacatan.png'">
-    <div class="heroText">
-      <p>Catálogo de motocicletas</p>
-      <h1>Precios válidos del 19 al 25 de mayo 2026</h1>
-    </div>
-  </header>
+<header class="hero">
+  <img id="heroLogo" class="brand" src="assets/img/logo-malacatan.png" alt="Italika">
+  <div class="heroText">
+    <p>Catálogo de motocicletas</p>
+    <h1>Precios válidos del 19 al 25 de mayo 2026</h1>
+  </div>
+</header>
 
-  <main class="wrap">
-    <section class="tools">
-      <div class="searchBox">
-        <span>⌕</span>
-        <input id="search" type="search" placeholder="Buscar modelo, categoría o SKU...">
+<main class="wrap">
+  <section class="tools">
+    <div class="searchBox"><span>⌕</span><input id="search" type="search" placeholder="Buscar modelo, categoría o SKU..."></div>
+    <select id="sort">
+      <option value="default">Ordenar</option>
+      <option value="priceAsc">Precio: menor a mayor</option>
+      <option value="priceDesc">Precio: mayor a menor</option>
+      <option value="nameAsc">Modelo A-Z</option>
+    </select>
+  </section>
+  <nav id="cats" class="cats"></nav>
+  <section id="grid" class="grid"></section>
+</main>
+
+<div class="floatStack">
+  <button id="calcBtn" class="float calc">🧮</button>
+  <button id="contactBtn" class="float phone">☎</button>
+</div>
+
+<dialog id="motoDialog" class="dialog">
+  <button class="x" data-close>×</button>
+  <div class="dialogGrid">
+    <div class="bigPhoto"><img id="modalImg" alt=""></div>
+    <div>
+      <span id="modalCat" class="pill"></span>
+      <h2 id="modalName"></h2>
+      <p id="modalDetail" class="muted"></p>
+      <div class="priceBox">
+        <small>Precio de contado</small>
+        <div id="modalOldWrap"></div>
+        <strong id="modalPrice"></strong>
       </div>
-      <select id="sort">
-        <option value="default">Ordenar</option>
-        <option value="priceAsc">Precio: menor a mayor</option>
-        <option value="priceDesc">Precio: mayor a menor</option>
-        <option value="nameAsc">Modelo A-Z</option>
-      </select>
-    </section>
+      <p class="mini">SKU: <b id="modalSku"></b> · Código: <b id="modalCode"></b></p>
+      <button id="interestBtn" class="primary">Me interesa esto</button>
+    </div>
+  </div>
+</dialog>
 
-    <nav id="cats" class="cats"></nav>
-    <section id="grid" class="grid"></section>
-  </main>
+<dialog id="paymentDialog" class="dialog small">
+  <button class="x" data-close-payment>×</button>
+  <h2>¿Cómo te interesa?</h2>
+  <p id="paymentMotoText" class="muted">Selecciona el tipo de pago.</p>
 
-  <div class="floatStack">
-    <button id="calcBtn" class="float calc" aria-label="Calculadora">🧮</button>
-    <button id="contactBtn" class="float phone" aria-label="Contactar">☎</button>
+  <div id="paymentOptions" class="payOptions">
+    <button class="payOption" data-pay="contado"><b>Contado</b><span>Comunicarme directamente con una agencia.</span></button>
+    <button class="payOption" data-pay="credito"><b>Crédito</b><span>Ver mínimo de enganche calculado.</span></button>
+    <button class="payOption" data-pay="visa"><b>Visa cuotas</b><span>Elegir banco y plazo de cuotas.</span></button>
   </div>
 
-  <dialog id="motoDialog" class="dialog">
-    <button class="x" data-close>×</button>
-    <div class="dialogGrid">
-      <div class="bigPhoto"><img id="modalImg" alt=""></div>
-      <div>
-        <span id="modalCat" class="pill"></span>
-        <h2 id="modalName"></h2>
-        <p id="modalDetail" class="muted"></p>
-        <div class="priceBox">
-          <small>Precio de contado</small>
-          <div id="modalOldWrap" class="oldWrap"></div>
-          <strong id="modalPrice"></strong>
-        </div>
-        <p class="mini">SKU: <b id="modalSku"></b> · Código: <b id="modalCode"></b></p>
-        <button id="interestBtn" class="primary">Me interesa esto</button>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog id="agencyDialog" class="dialog small">
-    <button class="x" data-close-agency>×</button>
-    <h2>¿Con qué agencia deseas comunicarte?</h2>
-    <p id="agencyText" class="muted">Te enviaremos a WhatsApp.</p>
-    <button class="agency" data-agency="malacatan">
-      <img src="assets/img/logo-malacatan.png" alt="">
-      <span>Malacatán</span>
-    </button>
-    <button class="agency" data-agency="sanpablo">
-      <img src="assets/img/logo-sanpablo.png" alt="">
-      <span>San Pablo</span>
-    </button>
-  </dialog>
-
-  <dialog id="calcDialog" class="dialog small">
-    <button class="x" data-close-calc>×</button>
-    <h2>Calculadora de enganche</h2>
-    <p class="muted">Ingresa el valor de la moto para calcular el 15% mínimo de enganche.</p>
-    <input id="calcValue" class="calcInput" type="number" min="0" inputmode="decimal" placeholder="Ejemplo: 7499">
+  <div id="creditStep" class="payStep hidden">
+    <h3>Crédito</h3>
     <div class="result">
-      <small>15% calculado</small>
-      <b id="calcExact">Q0.00</b>
       <small>Mínimo de enganche redondeado</small>
-      <strong id="calcResult">Q0.00</strong>
-      <em id="calcRoundNote">Redondeo al siguiente Q100</em>
+      <strong id="creditDownPayment">Q0.00</strong>
+      <em>Si el enganche es mayor, el interés es menor.</em>
     </div>
-    <p class="muted">¿Deseas comunicarte con nosotros?</p>
-    <button class="agency" data-calc-agency="malacatan">
-      <img src="assets/img/logo-malacatan.png" alt="">
-      <span>Malacatán</span>
-    </button>
-    <button class="agency" data-calc-agency="sanpablo">
-      <img src="assets/img/logo-sanpablo.png" alt="">
-      <span>San Pablo</span>
-    </button>
-  </dialog>
+    <button class="primary" id="creditNext">Seleccionar agencia</button>
+  </div>
 
-  <footer>© 2026 Italika Malacatán / San Pablo</footer>
+  <div id="visaBankStep" class="payStep hidden">
+    <h3>Visa cuotas</h3>
+    <p class="muted">¿De qué banco es tu tarjeta?</p>
+    <div id="bankGrid" class="bankGrid"></div>
+  </div>
 
-  <script src="data.js?v=10"></script>
-  <script src="app.js?v=10"></script>
+  <div id="visaInstallmentStep" class="payStep hidden">
+    <h3>Visa cuotas</h3>
+    <p class="muted">Algunos bancos cobran un porcentaje por el pago que puede ir del 2.38% al 6.25%, dependiendo del banco.</p>
+    <p class="muted">¿Cuántas cuotas deseas?</p>
+    <div id="installmentGrid" class="bankGrid"></div>
+  </div>
+</dialog>
+
+<dialog id="agencyDialog" class="dialog small">
+  <button class="x" data-close-agency>×</button>
+  <h2>¿Con qué agencia deseas comunicarte?</h2>
+  <p id="agencyText" class="muted">Te enviaremos a WhatsApp con todos los datos listos.</p>
+  <button class="agency" data-agency="malacatan"><img src="assets/img/logo-malacatan.png" alt=""><span>Malacatán</span></button>
+  <button class="agency" data-agency="sanpablo"><img src="assets/img/logo-sanpablo.png" alt=""><span>San Pablo</span></button>
+</dialog>
+
+<dialog id="calcDialog" class="dialog small">
+  <button class="x" data-close-calc>×</button>
+  <h2>Calculadora de enganche</h2>
+  <p class="muted">Ingresa el valor de la moto. Se calcula el 15% y se redondea automáticamente hacia arriba.</p>
+  <input id="calcValue" class="calcInput" type="number" min="0" inputmode="decimal" placeholder="Ejemplo: 7499">
+  <div class="result">
+    <small>15% calculado</small><b id="calcExact">Q0.00</b>
+    <small>Mínimo de enganche redondeado</small><strong id="calcResult">Q0.00</strong>
+    <em>Redondeo al siguiente Q100</em>
+  </div>
+  <p class="muted">¿Deseas comunicarte con nosotros?</p>
+  <button class="agency" data-calc-agency="malacatan"><img src="assets/img/logo-malacatan.png" alt=""><span>Malacatán</span></button>
+  <button class="agency" data-calc-agency="sanpablo"><img src="assets/img/logo-sanpablo.png" alt=""><span>San Pablo</span></button>
+</dialog>
+
+<footer>© 2026 Italika Malacatán / San Pablo</footer>
+<script src="data.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

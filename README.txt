@@ -1,18 +1,8 @@
-V10 MEJORAS
+V11 FORMAS DE PAGO
 
-Cambios:
-- Calculadora redondea automáticamente hacia arriba al siguiente Q100.
-- Muestra 15% calculado y mínimo de enganche redondeado.
-- TITAN250 movida a categoría Trabajo.
-- Texto principal cambiado a: Precios válidos del 19 al 25 de mayo 2026.
-- Logo superior cambia automáticamente entre Malacatán y San Pablo con animación.
-- Mantiene precios anteriores tachados y funciones anteriores.
+Al presionar “Me interesa esto”:
+- Contado: selecciona agencia y manda mensaje de contado.
+- Crédito: calcula 15% de enganche, lo redondea hacia arriba al siguiente Q100, muestra nota y selecciona agencia.
+- Visa cuotas: pide banco, muestra nota de porcentaje, pide cuotas y selecciona agencia.
 
-Sube reemplazando:
-index.html
-styles.css
-data.js
-app.js
-assets/
-
-No subas el ZIP completo.
+WhatsApp manda mensaje personalizado con moto, tipo de pago, enganche o banco/cuotas.
