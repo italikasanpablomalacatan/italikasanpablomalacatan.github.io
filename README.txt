@@ -1,9 +1,12 @@
-V13 FIX WHATSAPP CELULAR
+V17 DISEÑO iOS
 
-Cambio:
-- Arreglado el problema en celular donde WhatsApp no abría al seleccionar agencia.
-- Ahora después de la pantalla de carga redirige en la misma pestaña con window.location.href.
-- En computadora y celular funciona igual.
+Rediseño visual completo con estética iPhone/iOS:
+- Fondo claro tipo iOS
+- Tarjetas glass blancas
+- Botones estilo iOS
+- Paleta Apple: azul iOS, verde iOS, rojo iOS
+- Bordes redondeados tipo iPhone
+- Conserva todas las funciones anteriores
 
 Sube reemplazando:
 index.html
