@@ -1,12 +1,12 @@
-V17 DISEÑO iOS
+V19 REDISEÑO COMPLETO AGRUPADO
 
-Rediseño visual completo con estética iPhone/iOS:
-- Fondo claro tipo iOS
-- Tarjetas glass blancas
-- Botones estilo iOS
-- Paleta Apple: azul iOS, verde iOS, rojo iOS
-- Bordes redondeados tipo iPhone
-- Conserva todas las funciones anteriores
+Cambios:
+- Motos agrupadas por categoría en secciones grandes.
+- Nuevas tarjetas de categoría arriba.
+- Botones de teléfono y calculadora movidos a un dock inferior estilo iOS.
+- Búsqueda y ordenamiento reacomodados dentro de un panel principal.
+- Mantiene todas las funciones anteriores.
+- Mantiene estética iOS cristal glass.
 
 Sube reemplazando:
 index.html

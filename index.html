@@ -4,34 +4,42 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Catálogo Italika</title>
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body>
 <header class="hero">
   <img id="heroLogo" class="brand" src="assets/img/logo-malacatan.png" alt="Italika">
-  <div class="heroText">
+  <div class="heroGlow"></div><div class="heroText">
     <p>Catálogo de motocicletas</p>
     <h1>Precios válidos del 19 al 25 de mayo 2026</h1>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="tools">
-    <div class="searchBox"><span>⌕</span><input id="search" type="search" placeholder="Buscar modelo, categoría o SKU..."></div>
-    <select id="sort">
-      <option value="default">Ordenar</option>
-      <option value="priceAsc">Precio: menor a mayor</option>
-      <option value="priceDesc">Precio: mayor a menor</option>
-      <option value="nameAsc">Modelo A-Z</option>
-    </select>
+  <section class="catalogHeader">
+    <div>
+      <span class="sectionEyebrow">Explora por categoría</span>
+      <h2>Elige el estilo que buscas</h2>
+    </div>
+    <div class="tools">
+      <div class="searchBox"><span>⌕</span><input id="search" type="search" placeholder="Buscar modelo, categoría o SKU..."></div>
+      <select id="sort">
+        <option value="default">Ordenar</option>
+        <option value="priceAsc">Precio: menor a mayor</option>
+        <option value="priceDesc">Precio: mayor a menor</option>
+        <option value="nameAsc">Modelo A-Z</option>
+      </select>
+    </div>
   </section>
+
+  <section id="categoryCards" class="categoryCards"></section>
   <nav id="cats" class="cats"></nav>
-  <section id="grid" class="grid"></section>
+  <section id="grid" class="groupedCatalog"></section>
 </main>
 
-<div class="floatStack">
-  <button id="calcBtn" class="float calc">🧮</button>
-  <button id="contactBtn" class="float phone">☎</button>
+<div class="iosDock">
+  <button id="calcBtn" class="dockBtn calc"><span>🧮</span><b>Enganche</b></button>
+  <button id="contactBtn" class="dockBtn phone"><span>☎</span><b>Contactar</b></button>
 </div>
 
 <dialog id="motoDialog" class="dialog">
@@ -123,7 +131,7 @@
 </dialog>
 
 <footer>© 2026 Italika Malacatán / San Pablo</footer>
-<script src="data.js?v=17"></script>
-<script src="app.js?v=17"></script>
+<script src="data.js?v=19"></script>
+<script src="app.js?v=19"></script>
 </body>
 </html>
