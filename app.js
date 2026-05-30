@@ -60,7 +60,7 @@ function cardHtml(m){
     <span class="tag">${m.categoria}</span>
     <div class="photo"><img loading="lazy"></div>
     <h3>${m.nombre}</h3>
-    <p class="detail">${m.detalle}</p>
+    <p class="detail">${m.detail || m.detalle}</p>
     <div class="price">${priceHtml(m)}</div>
     <button class="interest">Me interesa esto</button>
   </article>`;
@@ -74,9 +74,41 @@ function makeCard(m){
   c.querySelector(".interest").onclick=e=>{e.stopPropagation();selectedMoto=m;openPayment()};
   return c;
 }
+
+// Función encargada de actualizar la barra inferior con las redes sociales correctas
+function updateDockSocials(currentLogoSrc) {
+  const container = $("#dynamicSocialBtns");
+  if(!container) return;
+  
+  let key = "malacatan";
+  if(currentLogoSrc && currentLogoSrc.includes("sanpablo")) {
+    key = "sanpablo";
+  }
+  
+  const dataAgencia = agencias[key];
+  let html = "";
+  
+  if(dataAgencia.facebook) {
+    html += `<button class="dockBtn fb" onclick="window.open('${dataAgencia.facebook}', '_blank')"><span>📘</span><b>Facebook</b></button>`;
+  }
+  if(dataAgencia.tiktok) {
+    html += `<button class="dockBtn tk" onclick="window.open('${dataAgencia.tiktok}', '_blank')"><span>🎵</span><b>TikTok</b></button>`;
+  }
+  
+  container.innerHTML = html;
+}
+
 function render(){
   const l=list();
   grid.innerHTML="";
+  
+  // Ocultar la sección Novedades si se está realizando una búsqueda manual activa
+  if(search.value.trim() !== "") {
+    $("#novedades").classList.add("hidden");
+  } else {
+    $("#novedades").classList.remove("hidden");
+  }
+  
   if(!l.length){grid.innerHTML=`<div class="emptyState">No encontramos motos con esa búsqueda.</div>`;return}
   if(active!="Todas" || search.value.trim()){
     const section=document.createElement("section");
@@ -128,5 +160,15 @@ $$("[data-pay]").forEach(b=>b.onclick=()=>{paymentType=b.dataset.pay;if(paymentT
 $("#creditNext").onclick=()=>{paymentDialog.close();openAgency()}
 const banks=["BI","Proamérica","G&T","BAM","Bantrab","Occidente","Banrural","Ficohsa","Micoope","Otros"];$("#bankGrid").innerHTML=banks.map(b=>`<button class="bankBtn" data-bank="${b}">${b}</button>`).join("");$$("[data-bank]").forEach(b=>b.onclick=()=>{selectedBank=b.dataset.bank;$("#visaBankStep").classList.add("hidden");$("#visaInstallmentStep").classList.remove("hidden")});
 const months=[6,10,12,15,18];$("#installmentGrid").innerHTML=months.map(m=>`<button class="bankBtn" data-months="${m}">${m} cuotas</button>`).join("");$$("[data-months]").forEach(b=>b.onclick=()=>{selectedInstallments=b.dataset.months;paymentDialog.close();openAgency()});
-const heroLogo=$("#heroLogo"),logoList=["assets/img/logo-malacatan.png","assets/img/logo-sanpablo.png"];let logoIndex=0;setInterval(()=>{logoIndex=(logoIndex+1)%logoList.length;heroLogo.classList.remove("logoFade");void heroLogo.offsetWidth;heroLogo.src=logoList[logoIndex];heroLogo.classList.add("logoFade")},6500);
-buildCats();buildCategoryCards();render();
+
+const heroLogo=$("#heroLogo"),logoList=["assets/img/logo-malacatan.png","assets/img/logo-sanpablo.png"];let logoIndex=0;
+setInterval(()=>{
+  logoIndex=(logoIndex+1)%logoList.length;
+  heroLogo.classList.remove("logoFade");
+  void heroLogo.offsetWidth;
+  heroLogo.src=logoList[logoIndex];
+  heroLogo.classList.add("logoFade");
+  updateDockSocials(logoList[logoIndex]); // Cambia los botones del dock según el logo activo
+},6500);
+
+buildCats();buildCategoryCards();render();updateDockSocials(logoList[0]);
