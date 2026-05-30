@@ -75,7 +75,7 @@ function makeCard(m){
   return c;
 }
 
-// Función encargada de actualizar la barra inferior con las redes sociales correctas
+// Función encargada de actualizar la barra inferior con las redes sociales correctas de forma estética
 function updateDockSocials(currentLogoSrc) {
   const container = $("#dynamicSocialBtns");
   if(!container) return;
@@ -168,7 +168,7 @@ setInterval(()=>{
   void heroLogo.offsetWidth;
   heroLogo.src=logoList[logoIndex];
   heroLogo.classList.add("logoFade");
-  updateDockSocials(logoList[logoIndex]); // Cambia los botones del dock según el logo activo
+  updateDockSocials(logoList[logoIndex]);
 },6500);
 
 buildCats();buildCategoryCards();render();updateDockSocials(logoList[0]);
