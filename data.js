@@ -24,13 +24,27 @@ const motos=[
 {sku:"34005352",codigo:"70000229",nombre:"VORTX250",detalle:"VORT-X250",categoria:"Vort-X",precio:17999,img:"VORTX250"},
 {sku:"34005055",codigo:"70000145",nombre:"DM125",detalle:"DM125",categoria:"Todo Terreno",precio:7499,img:"DM125"},
 {sku:"34005111",codigo:"70000144",nombre:"DM150",detalle:"DM150 SPRT",categoria:"Todo Terreno",precio:9499,img:"DM150"},
-{sku:"34005342",codigo:"72040001",nombre:"DM200",detalle:"DM200 V",categoria:"Todo Terreno",precio:9999,img:"DM200"},
+{sku:"34005342",2040001:"72040001",nombre:"DM200",detalle:"DM200 V",categoria:"Todo Terreno",precio:9999,img:"DM200"},
 {sku:"34005351",codigo:"70000228",nombre:"DM250",detalle:"DM250",categoria:"Todo Terreno",precio:10499,img:"DM250"},
-{sku:"34005704",codigo:"70000261",nombre:"DM250X",detalle:"DM250X N/B",categoria:"Todo Terreno",precio:13499,img:"DM250X"},
+{sku:"34005704",codigo:"70000261",nombre:"DM250X",detalle:"DM250X N/B",categoria:"Todo Terreno",precio:13499,img:"DM250"},
 {sku:"34006541",codigo:"70000273",nombre:"DM300",detalle:"DM300",categoria:"Todo Terreno",precio:15499,img:"DM300"},
 {sku:"34005821",codigo:"70000263",nombre:"ATV150",detalle:"ATV150 G",categoria:"ATV's",precio:14999,oldPrice:17999,img:"ATV150"},
 {sku:"34005218",codigo:"70000161",nombre:"ATV180",detalle:"ATV180 VERDE NEGRO",categoria:"ATV's",precio:16999,oldPrice:19999,img:"ATV180"},
 {sku:"34004931",codigo:"70000130",nombre:"ATV200",detalle:"ATV200 ANARANJADO",categoria:"ATV's",precio:20999,oldPrice:23999,img:"ATV200"},
 {sku:"34005266",codigo:"70000164",nombre:"ATV250",detalle:"ATV250 N/C",categoria:"ATV's",precio:24999,oldPrice:27999,img:"ATV250"}
 ];
-const agencias={malacatan:{nombre:"Malacatán",telefono:"50230822551"},sanpablo:{nombre:"San Pablo",telefono:"50259173974"}};
+
+const agencias={
+  malacatan:{
+    nombre:"Malacatán",
+    telefono:"50230822551",
+    facebook:"https://www.facebook.com/profile.php?id=100068131396850",
+    tiktok:null
+  },
+  sanpablo:{
+    nombre:"San Pablo",
+    telefono:"50259173974",
+    facebook:"https://www.facebook.com/profile.php?id=61578489304946",
+    tiktok:"https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4"
+  }
+};
