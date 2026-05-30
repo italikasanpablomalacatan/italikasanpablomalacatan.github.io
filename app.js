@@ -1,17 +1,13 @@
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
-const grid=$("#grid"),cats=$("#cats"),search=$("#search"),sort=$("#sort"),categoryCards=$("#categoryCards");
+const grid=$("#grid"),search=$("#search"),sort=$("#sort"),categoryCards=$("#categoryCards");
 const motoDialog=$("#motoDialog"),paymentDialog=$("#paymentDialog"),agencyDialog=$("#agencyDialog"),calcDialog=$("#calcDialog"),loadingDialog=$("#loadingDialog");
 let active="Todas",selectedMoto=null,exactCalc=0,roundedCalc=0,paymentType="",selectedBank="",selectedInstallments="",creditDownPayment=0;
 const q=n=>"Q"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 const roundUp=(n,step=100)=>Math.ceil(Number(n||0)/step)*step;
 
-// FUNCIÓN MODIFICADA: Prioriza JPEG sobre cualquier otro formato
 function paths(n){
   const v=[n,String(n).toLowerCase(),String(n).toUpperCase()];
-  const e=[
-    "jpeg","jpg","JPEG","JPG",            // Primera prioridad
-    "webp","png","gif","WEBP","PNG","GIF" // Siguientes opciones si no existen las anteriores
-  ];
+  const e=["jpeg","jpg","JPEG","JPG","webp","png","gif","WEBP","PNG","GIF"];
   const f=["assets/img/motos","assets/img"];
   let a=[];
   f.forEach(x=>[...new Set(v)].forEach(y=>e.forEach(z=>a.push(`${x}/${y}.${z}`))));
@@ -25,28 +21,35 @@ function categoryInfo(name,count){
   const icons={"Pasolas":"🛵","Trabajo":"🏍️","Línea Z":"⚡","Todo Terreno":"⛰️","ATV's":"🛞","Deportiva":"🏁","Vort-X":"💨","Café Racer":"☕"};
   return {icon:icons[name]||"🏍️", count};
 }
+
 function countsByCategory(){
   let c={Todas:motos.length};
   motos.forEach(m=>c[m.categoria]=(c[m.categoria]||0)+1);
   return c;
 }
-function buildCats(){
-  let c=countsByCategory();
-  cats.innerHTML=Object.entries(c).map(([k,v])=>`<button class="cat ${k==active?"active":""}" data-cat="${k}">${k} · ${v}</button>`).join("");
-  $$(".cat").forEach(b=>b.onclick=()=>{active=b.dataset.cat;buildCats();buildCategoryCards();render();document.querySelector(".catalogHeader").scrollIntoView({behavior:"smooth",block:"start"})});
-}
+
+// FUNCIÓN REESTRUCTURADA: Renderiza las tarjetas premium como único control
 function buildCategoryCards(){
   const c=countsByCategory();
-  const items=Object.entries(c).filter(([k])=>k!="Todas");
+  const items=Object.entries(c);
   categoryCards.innerHTML=items.map(([k,v])=>{
     const info=categoryInfo(k,v);
+    const displayIcon = k === "Todas" ? "✨" : info.icon;
+    const displayLabel = k === "Todas" ? "Ver Todo" : k;
     return `<button class="categoryTile ${active==k?"active":""}" data-cat="${k}">
-      <span class="tileIcon">${info.icon}</span>
-      <span class="tileText"><b>${k}</b><small>${v} modelos</small></span>
+      <span class="tileIcon">${displayIcon}</span>
+      <span class="tileText"><b>${displayLabel}</b><small>${v} modelos</small></span>
     </button>`;
   }).join("");
-  $$(".categoryTile").forEach(b=>b.onclick=()=>{active=b.dataset.cat;buildCats();buildCategoryCards();render()});
+  
+  $$(".categoryTile").forEach(b=>b.onclick=()=>{
+    active=b.dataset.cat;
+    buildCategoryCards();
+    render();
+    document.querySelector(".catalogHeader").scrollIntoView({behavior:"smooth",block:"start"});
+  });
 }
+
 function list(){
   let s=search.value.toLowerCase().trim();
   let l=motos.filter(m=>(active=="Todas"||m.categoria==active)&&`${m.nombre} ${m.detalle} ${m.categoria} ${m.sku} ${m.codigo}`.toLowerCase().includes(s));
@@ -55,6 +58,7 @@ function list(){
   if(sort.value=="nameAsc")l.sort((a,b)=>a.nombre.localeCompare(b.nombre));
   return l;
 }
+
 function cardHtml(m){
   return `<article class="card">
     <span class="tag">${m.categoria}</span>
@@ -65,6 +69,7 @@ function cardHtml(m){
     <button class="interest">Me interesa esto</button>
   </article>`;
 }
+
 function makeCard(m){
   const wrap=document.createElement("div");
   wrap.innerHTML=cardHtml(m);
@@ -75,40 +80,25 @@ function makeCard(m){
   return c;
 }
 
-// Función encargada de actualizar la barra inferior con las redes sociales correctas de forma estética
 function updateDockSocials(currentLogoSrc) {
   const container = $("#dynamicSocialBtns");
   if(!container) return;
-  
-  let key = "malacatan";
-  if(currentLogoSrc && currentLogoSrc.includes("sanpablo")) {
-    key = "sanpablo";
-  }
-  
+  let key = currentLogoSrc && currentLogoSrc.includes("sanpablo") ? "sanpablo" : "malacatan";
   const dataAgencia = agencias[key];
   let html = "";
-  
-  if(dataAgencia.facebook) {
-    html += `<button class="dockBtn fb" onclick="window.open('${dataAgencia.facebook}', '_blank')"><span>📘</span><b>Facebook</b></button>`;
-  }
-  if(dataAgencia.tiktok) {
-    html += `<button class="dockBtn tk" onclick="window.open('${dataAgencia.tiktok}', '_blank')"><span>🎵</span><b>TikTok</b></button>`;
-  }
-  
+  if(dataAgencia.facebook) html += `<button class="dockBtn fb" onclick="window.open('${dataAgencia.facebook}', '_blank')"><span>📘</span><b>Facebook</b></button>`;
+  if(dataAgencia.tiktok) html += `<button class="dockBtn tk" onclick="window.open('${dataAgencia.tiktok}', '_blank')"><span>🎵</span><b>TikTok</b></button>`;
   container.innerHTML = html;
 }
 
 function render(){
   const l=list();
   grid.innerHTML="";
-  
-  // Ocultar la sección Novedades si se está realizando una búsqueda manual activa
   if(search.value.trim() !== "") {
     $("#novedades").classList.add("hidden");
   } else {
     $("#novedades").classList.remove("hidden");
   }
-  
   if(!l.length){grid.innerHTML=`<div class="emptyState">No encontramos motos con esa búsqueda.</div>`;return}
   if(active!="Todas" || search.value.trim()){
     const section=document.createElement("section");
@@ -129,35 +119,40 @@ function render(){
       <div class="groupName"><span class="groupIcon">${info.icon}</span><div><span>${cat}</span><h2>${items.length} modelos</h2></div></div>
       <button class="seeGroup" data-cat="${cat}">Ver solo esta categoría</button>
     </div><div class="grid"></div>`;
-    section.querySelector(".seeGroup").onclick=()=>{active=cat;buildCats();buildCategoryCards();render();section.scrollIntoView({behavior:"smooth"})};
+    section.querySelector(".seeGroup").onclick=()=>{active=cat;buildCategoryCards();render();section.scrollIntoView({behavior:"smooth"})};
     const inner=section.querySelector(".grid");
     items.forEach(m=>inner.appendChild(makeCard(m)));
     grid.appendChild(section);
   });
 }
+
 function openMoto(m){selectedMoto=m;$("#modalCat").textContent=m.categoria;$("#modalName").textContent=m.nombre;$("#modalDetail").textContent=m.detalle;$("#modalPrice").textContent=q(m.precio);$("#modalOldWrap").innerHTML=m.oldPrice?`<span class="oldModal">${q(m.oldPrice)}</span> <span class="discountTag">Oferta</span>`:"";$("#modalSku").textContent=m.sku;$("#modalCode").textContent=m.codigo;let old=$("#modalImg"),clone=old.cloneNode();old.replaceWith(clone);img(clone,m.img,m.nombre);motoDialog.showModal()}
 function resetPayment(){paymentType="";selectedBank="";selectedInstallments="";creditDownPayment=0;$("#paymentOptions").classList.remove("hidden");$("#creditStep").classList.add("hidden");$("#visaBankStep").classList.add("hidden");$("#visaInstallmentStep").classList.add("hidden")}
 function paymentLabel(){return paymentType==="credito"?"crédito":paymentType==="visa"?"visa cuotas":paymentType==="contado"?"contado":"información"}
 function openPayment(){if(!selectedMoto)return;resetPayment();$("#paymentMotoText").textContent=`Moto seleccionada: ${selectedMoto.nombre} - ${selectedMoto.detalle}`;paymentDialog.showModal()}
 function openAgency(){ $("#agencyText").textContent=selectedMoto?`Consulta por ${selectedMoto.nombre} - ${selectedMoto.detalle} · Pago: ${paymentLabel()}`:"Te enviaremos a WhatsApp."; agencyDialog.showModal()}
+
 function buildClientMessage(key,custom){
-let a=agencias[key];
-if(custom) return custom;
-if(!selectedMoto){return `Hola, quiero información del catálogo de motocicletas.\nAgencia seleccionada: ${a.nombre}`}
-let lines=[`Hola, me interesa esta moto:`,``,`Moto: ${selectedMoto.nombre}`,`Modelo: ${selectedMoto.detalle}`,`Precio de contado: ${q(selectedMoto.precio)}`,`Tipo de pago: ${paymentLabel()}`];
-if(paymentType==="credito")lines.push(`Mínimo de enganche: ${q(creditDownPayment)}`);
-if(paymentType==="visa"){lines.push(`Banco de tarjeta: ${selectedBank}`);lines.push(`Cuotas deseadas: ${selectedInstallments}`)}
-if(paymentType==="contado")lines.push(`Deseo información para compra de contado.`);
-lines.push(`Agencia seleccionada: ${a.nombre}`);
-return lines.join("\n");
+  let a=agencias[key];
+  if(custom) return custom;
+  if(!selectedMoto){return `Hola, quiero información del catálogo de motocicletas.\nAgencia seleccionada: ${a.nombre}`}
+  let lines=[`Hola, me interesa esta moto:`,``,`Moto: ${selectedMoto.nombre}`,`Modelo: ${selectedMoto.detalle}`,`Precio de contado: ${q(selectedMoto.precio)}`,`Tipo de pago: ${paymentLabel()}`];
+  if(paymentType==="credito")lines.push(`Mínimo de enganche: ${q(creditDownPayment)}`);
+  if(paymentType==="visa"){lines.push(`Banco de tarjeta: ${selectedBank}`);lines.push(`Cuotas deseadas: ${selectedInstallments}`)}
+  if(paymentType==="contado")lines.push(`Deseo información para compra de contado.`);
+  lines.push(`Agencia seleccionada: ${a.nombre}`);
+  return lines.join("\n");
 }
+
 function wa(key,custom){let a=agencias[key];let msg=buildClientMessage(key,custom);try{agencyDialog.close()}catch(e){}try{calcDialog.close()}catch(e){}if(!loadingDialog.open)loadingDialog.showModal();setTimeout(()=>{try{loadingDialog.close()}catch(e){} const url=`https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`; window.location.href=url;},1600)}
 function calc(){let v=Number($("#calcValue").value||0);exactCalc=v*.15;roundedCalc=roundUp(exactCalc,100);$("#calcExact").textContent=q(exactCalc);$("#calcResult").textContent=q(roundedCalc)}
+
 search.oninput=render;sort.onchange=render;$("#contactBtn").onclick=()=>{selectedMoto=null;openAgency()};$("#calcBtn").onclick=()=>calcDialog.showModal();$("#interestBtn").onclick=openPayment;$("#calcValue").oninput=calc;
 $$("[data-close]").forEach(b=>b.onclick=()=>motoDialog.close());$$("[data-close-payment]").forEach(b=>b.onclick=()=>paymentDialog.close());$$("[data-close-agency]").forEach(b=>b.onclick=()=>agencyDialog.close());$$("[data-close-calc]").forEach(b=>b.onclick=()=>calcDialog.close());
 $$("[data-agency]").forEach(b=>b.onclick=()=>wa(b.dataset.agency));$$("[data-calc-agency]").forEach(b=>b.onclick=()=>{let val=Number($("#calcValue").value||0);let a=agencias[b.dataset.calcAgency];wa(b.dataset.calcAgency,[`Hola, calculé un enganche.`,``,`Valor de la moto: ${q(val)}`,`15% calculado: ${q(exactCalc)}`,`Enganche redondeado: ${q(roundedCalc)}`,`Agencia seleccionada: ${a.nombre}`].join("\n"))});
 $$("[data-pay]").forEach(b=>b.onclick=()=>{paymentType=b.dataset.pay;if(paymentType==="contado"){paymentDialog.close();openAgency()}if(paymentType==="credito"){creditDownPayment=roundUp(selectedMoto.precio*.15,100);$("#creditDownPayment").textContent=q(creditDownPayment);$("#paymentOptions").classList.add("hidden");$("#creditStep").classList.remove("hidden")}if(paymentType==="visa"){$("#paymentOptions").classList.add("hidden");$("#visaBankStep").classList.remove("hidden")}});
 $("#creditNext").onclick=()=>{paymentDialog.close();openAgency()}
+
 const banks=["BI","Proamérica","G&T","BAM","Bantrab","Occidente","Banrural","Ficohsa","Micoope","Otros"];$("#bankGrid").innerHTML=banks.map(b=>`<button class="bankBtn" data-bank="${b}">${b}</button>`).join("");$$("[data-bank]").forEach(b=>b.onclick=()=>{selectedBank=b.dataset.bank;$("#visaBankStep").classList.add("hidden");$("#visaInstallmentStep").classList.remove("hidden")});
 const months=[6,10,12,15,18];$("#installmentGrid").innerHTML=months.map(m=>`<button class="bankBtn" data-months="${m}">${m} cuotas</button>`).join("");$$("[data-months]").forEach(b=>b.onclick=()=>{selectedInstallments=b.dataset.months;paymentDialog.close();openAgency()});
 
@@ -171,4 +166,4 @@ setInterval(()=>{
   updateDockSocials(logoList[logoIndex]);
 },6500);
 
-buildCats();buildCategoryCards();render();updateDockSocials(logoList[0]);
+buildCategoryCards();render();updateDockSocials(logoList[0]);
