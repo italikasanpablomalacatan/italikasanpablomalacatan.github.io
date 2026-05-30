@@ -948,3 +948,107 @@ font-weight:700;
   .categoryCards { grid-template-columns: 1fr; }
   .categoryTile { padding: 14px !important; }
 }
+/* --- REDISEÑO Y CORRECCIÓN DE CATEGORÍAS ÚNICAS PREMIUM --- */
+.categoryCards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.categoryTile {
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 24px !important;
+  padding: 16px !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.40)) !important;
+  box-shadow: 0 8px 20px rgba(15,23,40,0.06) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  color: #0f1728 !important;
+  font-family: inherit !important;
+  transition: all .25s ease !important;
+}
+
+.categoryTile:hover, .categoryTile.active {
+  transform: translateY(-3px) !important;
+  background: linear-gradient(135deg, #0a84ff, #5ac8fa) !important;
+  color: white !important;
+  box-shadow: 0 12px 24px rgba(10, 132, 255, 0.25) !important;
+}
+
+.categoryTile:hover .tileIcon, .categoryTile.active .tileIcon {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.tileIcon {
+  width: 46px !important;
+  height: 46px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 16px !important;
+  background: rgba(15, 23, 40, 0.05) !important;
+  font-size: 1.4rem !important;
+  transition: background 0.2s;
+}
+
+.tileText {
+  display: flex;
+  flex-direction: column;
+}
+
+.tileText b {
+  display: block !important;
+  font-size: 0.98rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2;
+}
+
+.tileText small {
+  opacity: .7;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+}
+
+/* --- ESTILOS DE NOVEDADES MANTENIDOS --- */
+.novedadesSection { margin-bottom: 24px; }
+.novedadesGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
+.novedadCard { background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.45)); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 28px; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 25px rgba(15,23,40,0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: transform 0.25s ease; }
+.novedadCard:hover { transform: translateY(-4px); }
+.badgePlataforma { width: max-content; font-size: 0.7rem; font-weight: 1000; padding: 4px 10px; border-radius: 999px; color: white; text-transform: uppercase; }
+.badgePlataforma.fb { background: #1877f2; }
+.badgePlataforma.tk { background: #010101; border: 1px solid rgba(255, 255, 255, 0.2); }
+.previewMedia { position: relative; width: 100%; height: 160px; border-radius: 18px; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
+.previewMedia img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.playButton { position: absolute; width: 44px; height: 44px; background: rgba(255, 255, 255, 0.9); color: #000; border-radius: 50%; display: grid; place-items: center; font-size: 1rem; z-index: 3; padding-left: 2px; }
+.mediaOverlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, transparent 60%); z-index: 2; display: flex; align-items: flex-end; padding: 8px; }
+.mediaTag { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: white; font-size: 0.7rem; font-weight: 900; padding: 2px 6px; border-radius: 6px; }
+.novedadTexto { margin: 0; font-size: 0.85rem; line-height: 1.4; color: #6b7280; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 50px; }
+.novedadFooter { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(15, 23, 40, 0.06); padding-top: 8px; }
+.interaccion { font-size: 0.78rem; font-weight: 800; color: #6b7280; }
+.novedadBtn { text-decoration: none; font-weight: 1000; font-size: 0.78rem; padding: 6px 12px; border-radius: 10px; color: white; }
+.novedadBtn.fb { background: #1877f2; }
+.novedadBtn.tk { background: #111; }
+.dockBtn.fb { background: linear-gradient(135deg, #1877f2, #145dbf); }
+.dockBtn.tk { background: linear-gradient(135deg, #010101, #25f4ee); color: #fff; }
+
+/* --- RESPONSIVO --- */
+@media(max-width: 1100px) {
+  .categoryCards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .novedadesGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 760px) {
+  .categoryCards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .novedadesGrid { grid-template-columns: 1fr; }
+  .iosDock { flex-wrap: wrap; justify-content: center; width: calc(100% - 24px); }
+  .dockBtn { min-width: calc(50% - 6px); flex: 1; }
+  #dynamicSocialBtns { width: 100%; display: flex; gap: 10px; }
+  #dynamicSocialBtns .dockBtn { min-width: 0; flex: 1; }
+}
+@media(max-width: 480px) {
+  .categoryCards { grid-template-columns: 1fr; }
+}
