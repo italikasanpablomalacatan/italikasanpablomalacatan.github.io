@@ -4,7 +4,20 @@ const motoDialog=$("#motoDialog"),paymentDialog=$("#paymentDialog"),agencyDialog
 let active="Todas",selectedMoto=null,exactCalc=0,roundedCalc=0,paymentType="",selectedBank="",selectedInstallments="",creditDownPayment=0;
 const q=n=>"Q"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 const roundUp=(n,step=100)=>Math.ceil(Number(n||0)/step)*step;
-function paths(n){const v=[n,String(n).toLowerCase(),String(n).toUpperCase()];const e=["webp","png","jpg","jpeg","WEBP","PNG","JPG","JPEG"];const f=["assets/img/motos","assets/img"];let a=[];f.forEach(x=>[...new Set(v)].forEach(y=>e.forEach(z=>a.push(`${x}/${y}.${z}`))));return a}
+
+// FUNCIÓN MODIFICADA: Prioriza JPEG sobre cualquier otro formato
+function paths(n){
+  const v=[n,String(n).toLowerCase(),String(n).toUpperCase()];
+  const e=[
+    "jpeg","jpg","JPEG","JPG",            // Primera prioridad
+    "webp","png","gif","WEBP","PNG","GIF" // Siguientes opciones si no existen las anteriores
+  ];
+  const f=["assets/img/motos","assets/img"];
+  let a=[];
+  f.forEach(x=>[...new Set(v)].forEach(y=>e.forEach(z=>a.push(`${x}/${y}.${z}`))));
+  return a;
+}
+
 function img(el,name,alt){let p=paths(name),i=0;el.alt=alt||name;el.onerror=()=>{i++; if(i<p.length)el.src=p[i]; else{el.onerror=null;let d=document.createElement("div");d.className="no-img";d.textContent=alt||name;el.replaceWith(d)}};el.src=p[0]}
 function priceHtml(m){return `${m.oldPrice?`<span class="oldPrice">${q(m.oldPrice)}</span>`:""}<span>${q(m.precio)}</span>${m.oldPrice?`<span class="discountTag">Oferta</span>`:""}`}
 
