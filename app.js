@@ -28,7 +28,6 @@ function countsByCategory(){
   return c;
 }
 
-// FUNCIÓN REESTRUCTURADA: Renderiza las tarjetas premium como único control
 function buildCategoryCards(){
   const c=countsByCategory();
   const items=Object.entries(c);
@@ -60,13 +59,15 @@ function list(){
 }
 
 function cardHtml(m){
-  return `<article class="card">
+  const isAgotada = m.estado === "Agotada";
+  return `<article class="card ${isAgotada ? 'is-agotada' : ''}">
+    ${isAgotada ? '<div class="badgeAgotado">Agotada</div>' : ''}
     <span class="tag">${m.categoria}</span>
     <div class="photo"><img loading="lazy"></div>
     <h3>${m.nombre}</h3>
     <p class="detail">${m.detail || m.detalle}</p>
     <div class="price">${priceHtml(m)}</div>
-    <button class="interest">Me interesa esto</button>
+    <button class="interest" ${isAgotada ? 'disabled' : ''}>${isAgotada ? 'Agotada' : 'Me interesa esto'}</button>
   </article>`;
 }
 
@@ -75,8 +76,13 @@ function makeCard(m){
   wrap.innerHTML=cardHtml(m);
   const c=wrap.firstElementChild;
   img(c.querySelector("img"),m.img,m.nombre);
-  c.onclick=()=>openMoto(m);
-  c.querySelector(".interest").onclick=e=>{e.stopPropagation();selectedMoto=m;openPayment()};
+  
+  if(m.estado !== "Agotada") {
+    c.onclick=()=>openMoto(m);
+    c.querySelector(".interest").onclick=e=>{e.stopPropagation();selectedMoto=m;openPayment()};
+  } else {
+    c.onclick=()=>openMoto(m);
+  }
   return c;
 }
 
@@ -126,10 +132,37 @@ function render(){
   });
 }
 
-function openMoto(m){selectedMoto=m;$("#modalCat").textContent=m.categoria;$("#modalName").textContent=m.nombre;$("#modalDetail").textContent=m.detalle;$("#modalPrice").textContent=q(m.precio);$("#modalOldWrap").innerHTML=m.oldPrice?`<span class="oldModal">${q(m.oldPrice)}</span> <span class="discountTag">Oferta</span>`:"";$("#modalSku").textContent=m.sku;$("#modalCode").textContent=m.codigo;let old=$("#modalImg"),clone=old.cloneNode();old.replaceWith(clone);img(clone,m.img,m.nombre);motoDialog.showModal()}
+function openMoto(m){
+  selectedMoto=m;
+  $("#modalCat").textContent=m.categoria;
+  $("#modalName").textContent=m.nombre;
+  $("#modalDetail").textContent=m.detalle;
+  $("#modalPrice").textContent=q(m.precio);
+  $("#modalOldWrap").innerHTML=m.oldPrice?`<span class="oldModal">${q(m.oldPrice)}</span> <span class="discountTag">Oferta</span>`:"";
+  $("#modalSku").textContent=m.sku;
+  $("#modalCode").textContent=m.codigo;
+  
+  let old=$("#modalImg"),clone=old.cloneNode();
+  old.replaceWith(clone);
+  img(clone,m.img,m.nombre);
+  
+  const interestBtn = $("#interestBtn");
+  if(m.estado === "Agotada") {
+    interestBtn.textContent = "Agotada temporalmente";
+    interestBtn.style.background = "#6b7280";
+    interestBtn.disabled = true;
+  } else {
+    interestBtn.textContent = "Me interesa esto";
+    interestBtn.style.background = "";
+    interestBtn.disabled = false;
+  }
+  
+  motoDialog.showModal();
+}
+
 function resetPayment(){paymentType="";selectedBank="";selectedInstallments="";creditDownPayment=0;$("#paymentOptions").classList.remove("hidden");$("#creditStep").classList.add("hidden");$("#visaBankStep").classList.add("hidden");$("#visaInstallmentStep").classList.add("hidden")}
 function paymentLabel(){return paymentType==="credito"?"crédito":paymentType==="visa"?"visa cuotas":paymentType==="contado"?"contado":"información"}
-function openPayment(){if(!selectedMoto)return;resetPayment();$("#paymentMotoText").textContent=`Moto seleccionada: ${selectedMoto.nombre} - ${selectedMoto.detalle}`;paymentDialog.showModal()}
+function openPayment(){if(!selectedMoto || selectedMoto.estado === "Agotada")return;resetPayment();$("#paymentMotoText").textContent=`Moto seleccionada: ${selectedMoto.nombre} - ${selectedMoto.detalle}`;paymentDialog.showModal()}
 function openAgency(){ $("#agencyText").textContent=selectedMoto?`Consulta por ${selectedMoto.nombre} - ${selectedMoto.detalle} · Pago: ${paymentLabel()}`:"Te enviaremos a WhatsApp."; agencyDialog.showModal()}
 
 function buildClientMessage(key,custom){
