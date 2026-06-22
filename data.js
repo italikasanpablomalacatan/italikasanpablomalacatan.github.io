@@ -26,7 +26,7 @@ const motos = [
   {sku:"34005111",codigo:"70000144",nombre:"DM150",detalle:"DM150 SPRT",categoria:"Todo Terreno",precio:9999,img:"DM150"},
   {sku:"34005342",codigo:"72040001",nombre:"DM200",detalle:"DM200 V",categoria:"Todo Terreno",precio:10499,img:"DM200"},
   {sku:"34005351",codigo:"70000228",nombre:"DM250",detalle:"DM250",categoria:"Todo Terreno",precio:10999,img:"DM250"},
-  {sku:"34005704",codigo:"70000261",nombre:"DM250X",detalle:"DM250X N/B",categoria:"Todo Terreno",precio:13499,img:"DM250", estado: "Agotada"},
+  {sku:"34005704",codigo:"70000261",nombre:"DM250X",detalle:"DM250X N/B",categoria:"Todo Terreno",precio:13499,img:"DM250"},
   {sku:"34006541",codigo:"70000273",nombre:"DM300",detalle:"DM300",categoria:"Todo Terreno",precio:15499,img:"DM300"},
   {sku:"34005821",codigo:"70000263",nombre:"ATV150",detalle:"ATV150 G",categoria:"ATV's",precio:14999,oldPrice:17999,img:"ATV150", estado: "Agotada"},
   {sku:"34005218",codigo:"70000161",nombre:"ATV180",detalle:"ATV180 VERDE NEGRO",categoria:"ATV's",precio:16999,oldPrice:19999,img:"ATV180"},
