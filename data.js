@@ -17,7 +17,7 @@ const motos = [
   {sku:"34006382",codigo:"70000270",nombre:"150Z",detalle:"150Z NEGRO AZUL",categoria:"Línea Z",precio:10999,img:"150za", estado: "Agotada"},
   {sku:"34005183",codigo:"70000158",nombre:"150Z",detalle:"150Z NEGRO AMARILLO",categoria:"Línea Z",precio:9999,img:"150zam", estado: "Agotada"},
   {sku:"34006391",codigo:"70000271",nombre:"200Z",detalle:"200Z NEGRO AZUL",categoria:"Línea Z",precio:12999,img:"200Z", estado: "Agotada"},
-  {sku:"34006401",codigo:"70000272",nombre:"250Z",detalle:"250Z NEGRO GRIS",categoria:"Línea Z",precio:16999,img:"250Z"},
+  {sku:"34006401",codigo:"70000272",nombre:"250Z",detalle:"250Z NEGRO GRIS",categoria:"Línea Z",precio:15999,img:"250Z"},
   {sku:"34006836",codigo:"70000274",nombre:"280Z",detalle:"280Z",categoria:"Línea Z",precio:17999,img:"280Z"},
   {sku:"34004955",codigo:"70000150",nombre:"BLACKBIRD250",detalle:"BLACKBIRD250",categoria:"Café Racer",precio:12999,img:"BLACKBIRD250", estado: "Agotada"},
   {sku:"34005343",codigo:"70000226",nombre:"RT250G",detalle:"RT250G",categoria:"Deportiva",precio:17999,img:"RT250G"},
