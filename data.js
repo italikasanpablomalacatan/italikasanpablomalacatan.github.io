@@ -11,7 +11,7 @@ const motos = [
   {sku:"34005523",codigo:"70000230",nombre:"GTK125X",detalle:"GTK125X R",categoria:"Trabajo",precio:8999,oldPrice:11999,img:"gtkxr"},
   {sku:"34005524",codigo:"70000231",nombre:"GTK125X",detalle:"GTK125X A",categoria:"Trabajo",precio:8999,oldPrice:11999,img:"gtkxa"},
   {sku:"34005532",codigo:"70000232",nombre:"GTK125X",detalle:"GTK125X N",categoria:"Trabajo",precio:8999,oldPrice:11999,img:"gtkxn"},
-  {sku:"34005844",codigo:"70000265",nombre:"TITAN250",detalle:"TITAN 250",categoria:"Deportiva",precio:21999,img:"TITAN250",
+  {sku:"34005844",codigo:"70000265",nombre:"TITAN250",detalle:"TITAN 250",categoria:"Deportiva",precio:21999,img:"TITAN250"},
   {sku:"34005063",codigo:"70000162",nombre:"125Z",detalle:"125Z AZUL NEGRO",categoria:"Línea Z",precio:7499,img:"125za"},
   {sku:"34006381",codigo:"70000269",nombre:"125Z",detalle:"125Z NEGRO GRIS",categoria:"Línea Z",precio:7999,img:"125zn"},
   {sku:"34006382",codigo:"70000270",nombre:"150Z",detalle:"150Z NEGRO AZUL",categoria:"Línea Z",precio:10999,img:"150za"},
@@ -34,18 +34,18 @@ const motos = [
   {sku:"34005266",codigo:"70000164",nombre:"ATV250",detalle:"ATV250 N/C",categoria:"ATV's",precio:25499,oldPrice:27999,img:"ATV250"}
 ];
 
-const agencias={
-  malacatan:{
-    nombre:"Malacatán",
-    telefono:"50230822551",
-    facebook:"https://www.facebook.com/profile.php?id=100068131396850",
-    tiktok:null
+const agencias = {
+  malacatan: {
+    nombre: "Malacatán",
+    telefono: "50230822551",
+    facebook: "https://www.facebook.com/profile.php?id=100068131396850",
+    tiktok: null
   },
-  
-  sanpablo:{
-    nombre:"San Pablo",
-    telefono:"50259173974",
-    facebook:"https://www.facebook.com/profile.php?id=61578489304946",
-    tiktok:"https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4"
+
+  sanpablo: {
+    nombre: "San Pablo",
+    telefono: "50259173974",
+    facebook: "https://www.facebook.com/profile.php?id=61578489304946",
+    tiktok: "https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4"
   }
 };
