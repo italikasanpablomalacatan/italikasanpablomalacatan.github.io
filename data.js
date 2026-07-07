@@ -34,6 +34,38 @@ const motos = [
   {sku:"34005266",codigo:"70000164",nombre:"ATV250",detalle:"ATV250 N/C",categoria:"ATV's",precio:25499,oldPrice:27999,img:"ATV250"}
 ];
 
+// Información básica por modelo (fuente: italika.com.gt y fichas técnicas oficiales de la marca).
+// Algunos datos de modelos muy nuevos o poco documentados son aproximados; se recomienda confirmar en agencia.
+const specs = {
+  D125: {motor:"4 Tiempos, monocilíndrico", cilindrada:"~125 cc", arranque:"Eléctrico y de pedal", frenos:"Tambor delantero y trasero", uso:"Motoneta pasola ágil y económica, ideal para trayectos cortos en ciudad."},
+  WS150: {motor:"4 Tiempos monocilíndrico OHC", cilindrada:"149.6 cc", potencia:"8.6 HP @ 7,500 RPM", velocidadMax:"90 km/h", frenos:"Disco delantero / Tambor trasero", arranque:"Eléctrico y de pedal", rendimiento:"~28 km/L", uso:"Motoneta de doble faro, cómoda y con buen estilo para uso diario en ciudad."},
+  D150: {motor:"4 Tiempos, monocilíndrico", cilindrada:"~150 cc", arranque:"Eléctrico y de pedal", frenos:"Tambor delantero y trasero", uso:"Motoneta compacta, ligera y fácil de maniobrar en tráfico urbano."},
+  DS150: {motor:"4 Tiempos, monocilíndrico", cilindrada:"~150 cc", arranque:"Eléctrico y de pedal", frenos:"Disco delantero / Tambor trasero", uso:"Motoneta con equipamiento intermedio dentro de la familia 150, buen balance precio-prestaciones."},
+  BIT150: {motor:"4 Tiempos, monocilíndrico", cilindrada:"149.6 cc", potencia:"8.4 HP @ 7,500 RPM", velocidadMax:"90 km/h", frenos:"Tambor delantero y trasero", arranque:"Eléctrico y de pedal", rendimiento:"~28 km/L", uso:"Modelo \"crossover\": combina el look de una naked con la comodidad y transmisión automática de una motoneta."},
+  AT110: {motor:"4 Tiempos, carburador", cilindrada:"107 cc", potencia:"6.5 HP @ 8,500 RPM", frenos:"Tambor delantero y trasero", arranque:"Eléctrico y de pedal", uso:"Semiautomática ligera (~87 kg), ideal para quienes empiezan a manejar o buscan uso urbano sencillo."},
+  GTK125: {motor:"4 Tiempos OHV", cilindrada:"125 cc", potencia:"~11 HP @ 8,500 RPM", torque:"~9.5 Nm @ 7,500 RPM", velocidadMax:"90 km/h", transmision:"Manual 5 velocidades", frenos:"Disco delantero / Tambor trasero", arranque:"Eléctrico y de pedal", rendimiento:"~33 km/L", uso:"Moto de trabajo confiable y económica, pensada para repartidores y uso diario intensivo."},
+  GTK125X: {motor:"4 Tiempos OHV", cilindrada:"125 cc", transmision:"Manual 5 velocidades", frenos:"Disco delantero / Tambor trasero", arranque:"Eléctrico y de pedal", uso:"Versión reforzada de la GTK125, con suspensión doble y mayor resistencia para trabajo exigente."},
+  TITAN250: {cilindrada:"~250 cc", uso:"Deportiva de la línea Italika enfocada en potencia y presencia en carretera.", nota:"Ficha técnica detallada de este modelo aún no disponible en línea; se recomienda confirmar en agencia."},
+  "125Z": {motor:"4 Tiempos, monocilíndrico", cilindrada:"125 cc", potencia:"~11 HP", velocidadMax:"90 km/h", transmision:"Manual 5 velocidades", rendimiento:"~132 km/galón", uso:"Naked de entrada a la línea Z: ágil, ligera y económica para ciudad."},
+  "150Z": {motor:"4 Tiempos, monocilíndrico", cilindrada:"~150 cc", uso:"Naked de la línea Z con un paso más de potencia y equipamiento frente a la 125Z."},
+  "200Z": {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"196 cc", potencia:"16.4 HP @ 8,000 RPM", torque:"15 Nm @ 6,500 RPM", velocidadMax:"110 km/h", frenos:"Disco ventilado delantero y trasero", suspension:"Horquilla telescópica / Monoshock", uso:"Naked equilibrada, con mejor frenado y tablero digital frente a la 150Z."},
+  "250Z": {motor:"4 Tiempos, monocilíndrico", cilindrada:"223 cc", transmision:"Manual 5 velocidades", frenos:"Disco delantero / Tambor trasero", suspension:"Horquilla telescópica / Amortiguador central", uso:"La más potente de la línea Z clásica, sin salir del estilo naked."},
+  "280Z": {cilindrada:"~280 cc", uso:"Tope de gama de la línea Z, con más potencia y diseño deportivo renovado.", nota:"Ficha técnica detallada de este modelo aún no disponible en línea; se recomienda confirmar en agencia."},
+  BLACKBIRD250: {motor:"4 Tiempos, monocilíndrico", cilindrada:"250 cc", potencia:"~19.4 HP @ 8,500 RPM", torque:"~20.4 Nm @ 8,500 RPM", frenos:"Disco delantero y trasero", suspension:"Horquilla invertida / Monoshock", uso:"Estilo café racer clásico con toques modernos, tanque de 14L y asiento doble amplio."},
+  RT250G: {motor:"4 Tiempos, monocilíndrico SOHC", cilindrada:"250 cc", potencia:"~17.3 HP @ 8,500 RPM", torque:"~16.6 Nm @ 7,500 RPM", velocidadMax:"~122 km/h", transmision:"Manual 6 velocidades", arranque:"Eléctrico", rendimiento:"~23 km/L", uso:"Deportiva de la línea RT, con diseño agresivo y farola frontal grande."},
+  VORTX250: {motor:"4 Tiempos, monocilíndrico OHC", cilindrada:"250 cc", potencia:"20 HP @ 8,500 RPM", torque:"20.4 Nm @ 8,500 RPM", velocidadMax:"135 km/h", transmision:"Manual 6 velocidades por cadena", frenos:"Disco ventilado delantero y trasero", arranque:"Eléctrico", rendimiento:"~27 km/L", uso:"Tope de gama deportivo de Italika, tablero digital y diseño agresivo para carretera."},
+  DM125: {cilindrada:"~125 cc", uso:"Todo terreno compacta y ligera, fácil de manejar tanto en calle como en terracería."},
+  DM150: {cilindrada:"~150 cc", uso:"Todo terreno con más potencia que la DM125, pensada para caminos variados."},
+  DM200: {motor:"4 Tiempos, monocilíndrico", cilindrada:"198 cc", potencia:"15.5 HP @ 8,500 RPM", torque:"16 Nm @ 7,500 RPM", velocidadMax:"110 km/h", rendimiento:"~26 km/L", uso:"Todo terreno intermedia, buen balance entre potencia y control."},
+  DM250: {motor:"4 Tiempos", velocidadMax:"~100 km/h", arranque:"Eléctrico y de pedal", cargaMax:"~150 kg", uso:"Todo terreno pensada para recorridos largos y caminos exigentes."},
+  DM250X: {motor:"4 Tiempos", arranque:"Eléctrico y de pedal", uso:"Versión X de la DM250, mismo motor y mayor equipamiento para terrenos más desafiantes."},
+  DM300: {motor:"4 Tiempos", cilindrada:"271.3 cc", potencia:"~19.2 HP @ 8,500 RPM", torque:"~18.3 Nm @ 8,500 RPM", velocidadMax:"120 km/h", transmision:"Estándar 6 velocidades por cadena", frenos:"Disco delantero y trasero", suspension:"Horquilla invertida / Monoshock basculante", uso:"Tope de gama doble propósito, para pilotos experimentados que buscan dominar cualquier camino."},
+  ATV150: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"149.6 cc", potencia:"~7.65 HP", velocidadMax:"45 km/h", transmision:"Automática con reversa", rendimiento:"~26.5 km/L", uso:"La cuatrimoto más pequeña de Italika, ideal para trayectos cortos fuera de ciudad."},
+  ATV180: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"177.3 cc", potencia:"~9.38 HP @ 6,500 RPM", torque:"~11 Nm @ 5,500 RPM", velocidadMax:"65 km/h", transmision:"Automática", arranque:"Eléctrico", rendimiento:"~23 km/L", uso:"Cuatrimoto económica y accesible para uso ligero fuera de carretera."},
+  ATV200: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"200 cc", potencia:"~12.4 HP", velocidadMax:"65 km/h", frenos:"Disco trasero ventilado / Tambor delantero", cargaMax:"~150 kg", uso:"Diseño contemporáneo, con parrillas de carga en acero y plástico."},
+  ATV250: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"229 cc", potencia:"~14.8 HP @ 7,000 RPM", torque:"~15.5 Nm @ 6,000 RPM", transmision:"Semiautomática 5 velocidades + reversa", frenos:"Disco delantero y trasero", rendimiento:"~19 km/L", uso:"La cuatrimoto más grande y equipada de Italika, con tablero digital y puerto USB."}
+};
+
 const agencias = {
   malacatan: {
     nombre: "Malacatán",

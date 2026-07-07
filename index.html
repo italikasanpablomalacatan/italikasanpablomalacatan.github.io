@@ -7,14 +7,14 @@
 
 <link rel="icon" type="image/png" href="assets/img/logo-malacatan.png">
 
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
 <header class="hero">
   <img id="heroLogo" class="brand" src="assets/img/logo-malacatan.png" alt="Italika">
   <div class="heroGlow"></div><div class="heroText">
     <p>Catálogo de motocicletas</p>
-    <h1>Precios válidos del 7 al 13 de julio 2026</h1>
+    <h1>Precios válidos del 1 al 8 de junio 2026</h1>
   </div>
 </header>
 
@@ -124,8 +124,19 @@
       </div>
       <p class="mini">SKU: <b id="modalSku"></b> · Código: <b id="modalCode"></b></p>
       <button id="interestBtn" class="primary">Me interesa esto</button>
+      <div class="specsSection">
+        <h4>Información del modelo</h4>
+        <div id="specsBox"></div>
+      </div>
     </div>
   </div>
+</dialog>
+
+<dialog id="colorDialog" class="dialog small">
+  <button class="x" data-close-color>×</button>
+  <h2>¿Qué color te interesa?</h2>
+  <p id="colorMotoText" class="muted">Selecciona el color de tu preferencia.</p>
+  <div id="colorGrid" class="bankGrid"></div>
 </dialog>
 
 <dialog id="paymentDialog" class="dialog small">
@@ -197,7 +208,7 @@
 </dialog>
 
 <footer>© 2026 Italika Malacatán</footer>
-<script src="data.js?v=20"></script>
-<script src="app.js?v=20"></script>
+<script src="data.js?v=21"></script>
+<script src="app.js?v=21"></script>
 </body>
 </html>

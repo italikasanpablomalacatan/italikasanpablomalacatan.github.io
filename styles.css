@@ -998,6 +998,63 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* Ficha técnica en modal de moto */
+.specsSection { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.specsSection h4 {
+  margin: 0 0 12px;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 1000;
+  color: #60a5fa;
+}
+.specUso { margin: 0 0 14px; color: var(--text); font-weight: 700; font-size: .92rem; line-height: 1.45; }
+.specGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 8px 16px;
+}
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+  font-size: .85rem;
+}
+.specRow span { color: var(--muted); font-weight: 700; }
+.specRow b { color: #fff; font-weight: 900; text-align: right; }
+.specNota {
+  margin: 14px 0 0;
+  font-size: .8rem;
+  color: #fbbf24;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.specLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: #60a5fa;
+  font-weight: 1000;
+  font-size: .85rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(96,165,250,0.4);
+}
+.specLink:hover { color: #fff; border-color: #fff; }
+
+/* Precio en rango (varios colores) */
+.fromTag {
+  display: block;
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  opacity: .85;
+  margin-bottom: 2px;
+}
+
+/* Selector de color */
+.colorOptBtn:disabled { opacity: .45; cursor: not-allowed; }
+
 /* Responsive Media Queries consolidadas */
 @media(max-width: 1100px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
@@ -1013,6 +1070,7 @@ footer {
   .grid { grid-template-columns: repeat(2, 1fr); }
   .dialogGrid { grid-template-columns: 1fr; }
   .bigPhoto { min-height: 270px; }
+  .specGrid { grid-template-columns: 1fr; }
   .hero { border-radius: 0 0 36px 36px; width: 100%; margin: 0 0 16px; }
   .heroText h1 { font-size: 2.6rem; }
   .categoryCards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1034,3 +1092,4 @@ footer {
   .categoryCards { grid-template-columns: 1fr; }
   .categoryTile { padding: 14px !important; }
 }
+
