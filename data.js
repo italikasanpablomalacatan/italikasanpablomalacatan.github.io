@@ -65,17 +65,7 @@ const specs = {
   ATV200: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"200 cc", potencia:"~12.4 HP", velocidadMax:"65 km/h", frenos:"Disco trasero ventilado / Tambor delantero", cargaMax:"~150 kg", uso:"Diseño contemporáneo, con parrillas de carga en acero y plástico."},
   ATV250: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"229 cc", potencia:"~14.8 HP @ 7,000 RPM", torque:"~15.5 Nm @ 6,000 RPM", transmision:"Semiautomática 5 velocidades + reversa", frenos:"Disco delantero y trasero", rendimiento:"~19 km/L", uso:"La cuatrimoto más grande y equipada de Italika, con tablero digital y puerto USB."}
 };
-
 const agencias = {
-  malacatan: {
-    nombre: "Malacatán",
-    telefono: "50230822551",
-    facebook: "https://www.facebook.com/profile.php?id=100068131396850",
-    tiktok: null,
-    direccion: "5 calle 06-55 zona 2, Malacatán, San Marcos",
-    mapsUrl: "https://www.google.com/maps/place/Malacat%C3%A1n/@14.9087559,-92.0643583,21z/data=!4m6!3m5!1s0x858e714365343571:0xf887bdb0b89ca99d!8m2!3d14.9122239!4d-92.0518154!16zL20vMDc5MHNy?entry=ttu"
-  },
-
   sanpablo: {
     nombre: "San Pablo",
     telefono: "50259173974",
@@ -83,5 +73,16 @@ const agencias = {
     tiktok: "https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4",
     direccion: "San Pablo, San Marcos",
     mapsUrl: "https://www.google.com/maps/place/Italika+San+Pablo/@14.9317419,-92.0027141,21z/data=!4m6!3m5!1s0x858e7742f8c18be3:0xa096e2efba84e7b!8m2!3d14.9316589!4d-92.0028031!16s%2Fg%2F11zbqk6rg_?entry=ttu"
+  },
+
+  malacatan: {
+    nombre: "Malacatán",
+    telefono: "50230822551",
+    facebook: "https://www.facebook.com/profile.php?id=100068131396850",
+    tiktok: null,
+    direccion: "5 calle 06-55 zona 2, Malacatán, San Marcos",
+    mapsUrl: "https://www.google.com/maps/place/Malacat%C3%A1n/@14.9087559,-92.0643583,21z/data=!4m6!3m5!1s0x858e714365343571:0xf887bdb0b89ca99d!8m2!3d14.9122239!4d-92.0518154!16zL20vMDc5MHNy?entry=ttu"
   }
+
+
 };
