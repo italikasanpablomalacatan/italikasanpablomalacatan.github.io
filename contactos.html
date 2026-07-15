@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contactos y Agencias · Italika</title>
+
+<link rel="icon" type="image/png" href="assets/img/logo-malacatan.png">
+
+<link rel="stylesheet" href="styles.css?v=23">
+</head>
+<body>
+
+<section class="agenciesView">
+  <div class="agenciesTop">
+    <a href="index.html" class="backBtn">← Volver al catálogo</a>
+  </div>
+  <div class="agenciesIntro">
+    <span class="sectionEyebrow">Contáctanos</span>
+    <h1>Nuestras Agencias</h1>
+    <p class="muted">Elige tu agencia más cercana para hablar directamente con un asesor por WhatsApp o ver la ubicación en el mapa.</p>
+  </div>
+
+  <div class="agencyCardsWrap" id="agencyCardsWrap"></div>
+
+  <a href="index.html" class="backBtn wide">← Volver al catálogo</a>
+</section>
+
+<script src="data.js?v=23"></script>
+<script>
+function waLinkAgencia(key){
+  const a=agencias[key];
+  return `https://wa.me/${a.telefono}?text=${encodeURIComponent('Hola, quiero información sobre motocicletas Italika.\nAgencia: '+a.nombre)}`;
+}
+
+function buildAgencyCards(){
+  const wrap=document.querySelector("#agencyCardsWrap");
+  const logos={malacatan:"assets/img/logo-malacatan.png",sanpablo:"assets/img/logo-sanpablo.png"};
+  wrap.innerHTML=Object.keys(agencias).map(key=>{
+    const a=agencias[key];
+    return `<article class="agencyInfoCard">
+      <div class="agencyLogoWrap"><img src="${logos[key]||''}" alt="Italika ${a.nombre}"></div>
+      <h2>Italika ${a.nombre}</h2>
+      <p class="agencyAddress">📍 ${a.direccion||''}</p>
+      <p class="agencyPhone">☎ ${a.telefono}</p>
+      <div class="agencyActions">
+        ${a.mapsUrl?`<a class="agencyBtn maps" href="${a.mapsUrl}" target="_blank" rel="noopener">Ver ubicación</a>`:''}
+        <a class="agencyBtn wa" href="${waLinkAgencia(key)}" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+buildAgencyCards();
+</script>
+
+<footer>© 2026 Italika Malacatán</footer>
+</body>
+</html>

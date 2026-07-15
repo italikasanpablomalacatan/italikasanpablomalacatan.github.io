@@ -71,13 +71,17 @@ const agencias = {
     nombre: "Malacatán",
     telefono: "50230822551",
     facebook: "https://www.facebook.com/profile.php?id=100068131396850",
-    tiktok: null
+    tiktok: null,
+    direccion: "5 calle 06-55 zona 2, Malacatán, San Marcos",
+    mapsUrl: "https://www.google.com/maps/place/Malacat%C3%A1n/@14.9087559,-92.0643583,21z/data=!4m6!3m5!1s0x858e714365343571:0xf887bdb0b89ca99d!8m2!3d14.9122239!4d-92.0518154!16zL20vMDc5MHNy?entry=ttu"
   },
 
   sanpablo: {
     nombre: "San Pablo",
     telefono: "50259173974",
     facebook: "https://www.facebook.com/profile.php?id=61578489304946",
-    tiktok: "https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4"
+    tiktok: "https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4",
+    direccion: "San Pablo, San Marcos",
+    mapsUrl: "https://www.google.com/maps/place/Italika+San+Pablo/@14.9317419,-92.0027141,21z/data=!4m6!3m5!1s0x858e7742f8c18be3:0xa096e2efba84e7b!8m2!3d14.9316589!4d-92.0028031!16s%2Fg%2F11zbqk6rg_?entry=ttu"
   }
 };
