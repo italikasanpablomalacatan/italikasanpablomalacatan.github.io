@@ -1121,11 +1121,15 @@ footer {
 .agencyActions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
 .agencyBtn {
   display: block;
+  width: 100%;
   padding: 14px;
   border-radius: 16px;
   font-weight: 1000;
   font-size: .88rem;
+  font-family: inherit;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
   transition: transform .2s, filter .2s;
 }
 .agencyBtn:hover { transform: translateY(-2px); filter: brightness(1.1); }

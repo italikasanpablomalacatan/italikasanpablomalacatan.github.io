@@ -264,7 +264,7 @@ function buildClientMessage(key,custom){
   return lines.join("\n");
 }
 
-function wa(key,custom){let a=agencias[key];let msg=buildClientMessage(key,custom);try{agencyDialog.close()}catch(e){}try{calcDialog.close()}catch(e){}if(!loadingDialog.open)loadingDialog.showModal();setTimeout(()=>{try{loadingDialog.close()}catch(e){} const url=`https://wa.me/${a.telefono}?text=${encodeURIComponent(msg)}`; window.location.href=url;},1600)}
+function wa(key,custom){let a=agencias[key];let msg=buildClientMessage(key,custom);let tel=getAgencyPhone(key);try{agencyDialog.close()}catch(e){}try{calcDialog.close()}catch(e){}if(!loadingDialog.open)loadingDialog.showModal();setTimeout(()=>{try{loadingDialog.close()}catch(e){} const url=`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`; window.location.href=url;},1600)}
 function calc(){let v=Number($("#calcValue").value||0);exactCalc=v*.15;roundedCalc=roundUp(exactCalc,100);$("#calcExact").textContent=q(exactCalc);$("#calcResult").textContent=q(roundedCalc)}
 
 search.oninput=render;sort.onchange=render;$("#contactBtn").onclick=()=>{selectedMoto=null;openAgency()};$("#calcBtn").onclick=()=>calcDialog.showModal();$("#interestBtn").onclick=()=>startInterest(selectedProduct);$("#calcValue").oninput=calc;

@@ -7,7 +7,7 @@
 
 <link rel="icon" type="image/png" href="assets/img/logo-malacatan.png">
 
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=24">
 </head>
 <body>
 
@@ -26,11 +26,13 @@
   <a href="index.html" class="backBtn wide">← Volver al catálogo</a>
 </section>
 
-<script src="data.js?v=23"></script>
+<script src="data.js?v=24"></script>
 <script>
-function waLinkAgencia(key){
+function openWaAgencia(key){
   const a=agencias[key];
-  return `https://wa.me/${a.telefono}?text=${encodeURIComponent('Hola, quiero información sobre motocicletas Italika.\nAgencia: '+a.nombre)}`;
+  const tel=getAgencyPhone(key);
+  const msg=encodeURIComponent('Hola, quiero información sobre motocicletas Italika.\nAgencia: '+a.nombre);
+  window.open(`https://wa.me/${tel}?text=${msg}`,'_blank');
 }
 
 function buildAgencyCards(){
@@ -38,17 +40,19 @@ function buildAgencyCards(){
   const logos={malacatan:"assets/img/logo-malacatan.png",sanpablo:"assets/img/logo-sanpablo.png"};
   wrap.innerHTML=Object.keys(agencias).map(key=>{
     const a=agencias[key];
+    const telText=a.telefonos.length>1?"Te atendemos por cualquiera de nuestros números":("☎ "+a.telefonos[0]);
     return `<article class="agencyInfoCard">
       <div class="agencyLogoWrap"><img src="${logos[key]||''}" alt="Italika ${a.nombre}"></div>
       <h2>Italika ${a.nombre}</h2>
       <p class="agencyAddress">📍 ${a.direccion||''}</p>
-      <p class="agencyPhone">☎ ${a.telefono}</p>
+      <p class="agencyPhone">${telText}</p>
       <div class="agencyActions">
         ${a.mapsUrl?`<a class="agencyBtn maps" href="${a.mapsUrl}" target="_blank" rel="noopener">Ver ubicación</a>`:''}
-        <a class="agencyBtn wa" href="${waLinkAgencia(key)}" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+        <button class="agencyBtn wa" data-wa-key="${key}">Escribir por WhatsApp</button>
       </div>
     </article>`;
   }).join("");
+  wrap.querySelectorAll("[data-wa-key]").forEach(b=>b.onclick=()=>openWaAgencia(b.dataset.waKey));
 }
 
 buildAgencyCards();

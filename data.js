@@ -65,10 +65,11 @@ const specs = {
   ATV200: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"200 cc", potencia:"~12.4 HP", velocidadMax:"65 km/h", frenos:"Disco trasero ventilado / Tambor delantero", cargaMax:"~150 kg", uso:"Diseño contemporáneo, con parrillas de carga en acero y plástico."},
   ATV250: {motor:"4 Tiempos, monocilíndrico enfriado por aire", cilindrada:"229 cc", potencia:"~14.8 HP @ 7,000 RPM", torque:"~15.5 Nm @ 6,000 RPM", transmision:"Semiautomática 5 velocidades + reversa", frenos:"Disco delantero y trasero", rendimiento:"~19 km/L", uso:"La cuatrimoto más grande y equipada de Italika, con tablero digital y puerto USB."}
 };
+
 const agencias = {
   sanpablo: {
     nombre: "San Pablo",
-    telefono: "50259173974",
+    telefonos: ["50259173974"],
     facebook: "https://www.facebook.com/profile.php?id=61578489304946",
     tiktok: "https://www.tiktok.com/@itlksp?_r=1&_t=ZS-96nt4gTdqI4",
     direccion: "San Pablo, San Marcos",
@@ -77,12 +78,31 @@ const agencias = {
 
   malacatan: {
     nombre: "Malacatán",
-    telefono: "50230822551",
+    telefonos: ["50230822551", "50238815225"],
     facebook: "https://www.facebook.com/profile.php?id=100068131396850",
     tiktok: null,
     direccion: "5 calle 06-55 zona 2, Malacatán, San Marcos",
     mapsUrl: "https://www.google.com/maps/place/Malacat%C3%A1n/@14.9087559,-92.0643583,21z/data=!4m6!3m5!1s0x858e714365343571:0xf887bdb0b89ca99d!8m2!3d14.9122239!4d-92.0518154!16zL20vMDc5MHNy?entry=ttu"
   }
-
-
 };
+
+// Reparte los contactos por WhatsApp en turnos estrictos: si una agencia tiene más de
+// un número (ej. Malacatán), nunca se repite el mismo número dos veces seguidas.
+// Se guarda el último turno usado en localStorage para que la alternancia se mantenga
+// entre visitas y entre el catálogo y la página de contactos.
+function getAgencyPhone(key){
+  const a = agencias[key];
+  const list = a && a.telefonos && a.telefonos.length ? a.telefonos : [];
+  if(!list.length) return "";
+  if(list.length === 1) return list[0];
+  const storageKey = "italika_wa_turn_" + key;
+  let last = -1;
+  try{
+    const raw = localStorage.getItem(storageKey);
+    if(raw !== null) last = parseInt(raw, 10);
+  }catch(e){}
+  if(isNaN(last) || last < 0 || last >= list.length) last = -1;
+  const next = (last + 1) % list.length;
+  try{ localStorage.setItem(storageKey, String(next)); }catch(e){}
+  return list[next];
+}
